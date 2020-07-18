@@ -1,0 +1,95 @@
+.loginContainer {
+    display: flex !important;
+    justify-content: center !important;
+    /* max-width: 800px !important; */
+}
+
+.loginCard {
+    /* display: flex !important; */
+    width: 40%;
+    min-width: 355px !important;
+    /* max-width: 600px !important; */
+    /* justify-content: center !important; */
+    margin-top: 5%;
+}
+
+.flex {
+    display: flex !important;
+    justify-content: flex-end;
+}
+.registerLink {
+    display: flex !important;
+    justify-content: right !important;
+}
+
+.blackText {
+    font-size: x-large;
+}
+
+.signInInstructions {
+    margin-left: 15px;
+    
+}
+
+.registerCard {
+    display: flex !important;
+    width: 98% !important;
+    justify-content: center !important;
+}
+
+.rightAlign {
+    text-align: right;
+}
+
+.smallText {
+    font-size: .75em;
+}
+
+.signLink {
+    margin-right: 1em;
+    padding-top: 2em;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 50px;
+}
+
+.registerHeader {
+    display: flex;
+    justify-content: center;
+}
+
+.registerUsername {
+    margin-top: 15px !important;
+}
+
+.registerUsername {
+    display: inline-block !important;
+    margin-top: 15px;
+}
+
+.registerEmail {
+    display: inline-block !important;
+    max-height: 153px !important;
+    min-width: 82px;
+}
+.registerSubmitBtn {
+    display: flex;
+    width: 10%;
+    justify-content: center;
+}
+
+.registerSubmitBtnBox {
+    display: flex;
+    
+}
+
+.fitInBtn {
+    display: flex;
+    overflow: hidden
+}

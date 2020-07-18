@@ -1,0 +1,62 @@
+/* search results buttons css below */
+
+.unlovedBtn {
+    border: solid 2px rgba(231, 111, 129, 0.808) !important;
+    color: rgba(222,72,72,0.7443590255591055)
+  }
+  
+  .unhatedBtn {
+    border: solid 2px rgb(40, 249, 179) !important;
+    color: rgb(40, 249, 179);
+  }
+  
+  .lovedBtn {
+    background-color: rgba(222,72,72,0.7443590255591055) !important;
+    color: white !important;
+  }
+  
+  .hatedBtn {
+    background-color: rgb(178, 245, 223) !important;
+    border: solid 2px rgb(40, 226, 164) !important;
+    color: white !important;
+  }
+  
+  .forgetBtn {
+    border: solid 2px rgb(66, 142, 235) !important;
+    color:  rgb(66, 142, 235) !important;
+  }
+  
+  .buttonRow {
+    align-self: flex-end;
+    margin-right: 5px;
+  }
+  
+  /* search result cards */
+  
+  .cardImage {
+    min-width: 200px;
+    max-width: 200px;
+  }
+  
+  .cardGroup {
+    min-width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-evenly;
+    
+  }
+  
+  .releaseDate {
+    font-weight: lighter;
+    font-size: medium;
+    font-style: italic;
+    padding-left: 5px;
+  }
+  
+  /* search bar  */
+  /* .movieSearchInput {
+    padding-left: 1em;
+    padding-top: .5em;
+  } */
+
+  

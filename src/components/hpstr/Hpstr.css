@@ -1,0 +1,133 @@
+.andysDiv {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    border: .05em solid rgba(247, 71, 71, 0.44);
+    border-radius: 5%;
+    position: relative;
+    box-shadow: 7px 13px 10px 6px rgba(155, 155, 155, 0.262);
+    padding: 10px;
+    margin-bottom: 30px;
+    background: white;
+}
+
+
+.headline {
+    /* margin-left: 20px; */
+    /* background-color: rgba(59, 249, 192, 0.426); */
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.headlineTextWhite {
+    /* text-shadow: 2px 1px 0px rgba(0, 0, 0, 0.947), 1px 2px 5px rgba(61, 63, 62, 0.612), 1px 1px 8px rgba(82, 82, 82, 0.358); */
+    letter-spacing: .13em;
+    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.324);
+    font-size: x-large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* font-weight: bolder; */
+    text-transform: uppercase;
+    color: rgb(48, 47, 47);
+}
+
+.headlineTextBlack {
+    /* text-shadow: 2px 2px 2px rgba(222, 222, 222, 0.947), 1px 2px 3px rgba(50, 48, 48, 0.612), 1px 1px 0px rgba(82, 82, 82, 0.358); */
+    letter-spacing: .13em;
+    box-shadow: 0px 1px 10px 5px rgba(202, 119, 119, 0.728);
+    font-size: xx-large;
+    /* font-weight: bolder; */
+    text-transform: lowercase;
+    color: rgb(45, 40, 40);
+}
+
+.headlineGreen {
+    background-color: rgba(59, 249, 192, 0.426) !important;
+}
+
+.whiteText {
+    color: white;
+    letter-spacing: .13em;
+    /* box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.324); */
+    font-size: xx-large;
+}
+.headlineYellow {
+    /* background-color: rgb(24, 24, 23); */
+    background-color: rgba(150, 154, 149, 0.858);
+}
+.headlineRed {
+    background-color: rgba(235, 91, 75, 0.426) !important;
+}
+
+.headlineBlue {
+    background-color: rgba(52, 146, 245, 0.543);
+}
+
+.headlinePurple {
+    background-color: rgba(252, 255, 59, 0.926);
+}
+
+.profileHeadline {
+    /* margin-left: 20px; */
+    background-color: rgba(235, 91, 75, 0.426);
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    color: white;
+    text-shadow: 2px 1px 0px rgba(0, 0, 0, 0.947), 1px 5px 5px rgba(61, 63, 62, 0.612), 1px 1px 10px rgba(82, 82, 82, 0.358);
+    letter-spacing: .23em;
+    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.324);
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.andysContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.homeContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+img.hpstrImage {
+    margin-top: 10px;
+    display: flex;
+    width: 50%;
+    align-self: center;
+}
+
+.bodyContainer {
+    margin-top: 19px;
+    text-transform: lowercase;
+    flex-wrap: wrap;
+    padding: 5px 30px 15px;
+    font-size: x-large;
+    word-wrap: break-word;
+}
+
+.hpstrMovieTitle {
+    justify-content: right;
+    text-transform: lowercase;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: 1em;
+}
+
+.smallRadius {
+    border-radius: 5%;
+}
+
+.greenBorder {
+    border: 4px solid rgba(59, 249, 192, 0.426);
+    
+}
+
+.marginTop {
+    margin-top: 40px;
+}
+
+.headlineShadow {
+    box-shadow: 0px 1px 12px 9px rgba(0, 0, 0, 0.324);
+}

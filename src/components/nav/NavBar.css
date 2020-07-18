@@ -1,0 +1,27 @@
+.navList {
+  display: flex;
+  justify-content: space-between
+}
+
+.navToggle {
+text-align: left;
+}
+
+.nav-link {
+text-align: right;
+margin-right: 10px;
+}
+
+.burgerButton {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: right !important;
+}
+.navToggleDiv {
+  display: flex !important;
+  justify-content: right !important;
+}
+
+.navToggle {
+  justify-self: right !important;
+}

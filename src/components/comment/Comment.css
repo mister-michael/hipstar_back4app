@@ -1,0 +1,140 @@
+.commentContainer {
+    box-shadow: 0px 0px 10px rgba(92, 92, 92, 0.596);
+    margin-bottom: 18px;
+    min-height: 100px;
+}
+
+.usernameBox--1 {
+    background-color: rgba(235, 91, 75, 0.426);
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    font-weight: bold;
+    
+}
+.usernameBox--2 {
+    background-color: rgba(59, 249, 192, 0.426);
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    font-weight: bold;
+}
+
+.usernameBox--3 {
+    background-color: rgba(99, 185, 239, 0.426);
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    font-weight: bold;
+}
+
+.usernameBox--4 {
+    background-color: rgba(247, 236, 80, 0.899);
+    /* background-color: rgba(58, 58, 55, 0.899);
+    color: rgba(245, 230, 20, 0.899); */
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    font-weight: bold;
+}
+
+.commentBox {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}
+
+.scrollBox {
+    width:100%;
+    max-height:350px;
+    /* line-height:3em; */
+    overflow:auto;
+    padding:5px;
+}
+
+.buttonMarginBottom {
+    margin-top: 08px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.reviewButtonColor {
+    /* background-color: rgb(65, 65, 54) !important; */
+
+    background-color: white !important;
+    color: rgba(0, 0, 0, 0.413) !important;
+    box-shadow: 0px 0px 05px  rgba(0, 0, 0, 0.214);
+    border-color: rgba(0, 0, 0, 0.303) !important;
+}
+
+.yellowGlow {
+    box-shadow: 0px 0px 10px rgb(157, 157, 37);
+    background-color: white !important;
+    color: rgb(145, 145, 138) !important;
+    box-shadow: 0px 0px 7px  yellow;
+    border-color: rgb(184, 184, 31) !important;
+}
+
+.saveButtonColor {
+    background-color: rgb(138, 138, 138) !important;
+    color: rgb(255, 255, 255) !important;
+    font-weight: bold;
+    box-shadow: 0px 0px 05px  rgba(0, 0, 0, 0.214);
+    border-color: rgba(0, 0, 0, 0.303) !important;
+}
+
+.closeButtonColor {
+    background-color: white !important;
+    color: rgba(0, 0, 0, 0.413) !important;
+    box-shadow: 0px 0px 02px  rgba(0, 0, 0, 0.214);
+    border-color: rgba(0, 0, 0, 0.303) !important;
+    margin: 0px 3px 10px;
+}
+.reviewHeader {
+    font-size: x-large;
+}
+.profileMarginBottom {
+    margin-bottom: 27px ;
+}
+
+.reviewButtonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.justifyRight {
+    justify-content: right;
+}
+
+.editModal {
+    margin-top: 400px !important;
+    min-height: 700px !important;
+}
+
+.YELLOW {
+    background-color: rgba(247, 236, 80, 0.949);
+    padding: 2px 4px 4px 9px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0px 8px 0px 0px;
+}
+
+.commentInstructions {
+    padding-top: 5px;
+    padding-bottom: 25px;
+    margin-left: 10px;
+    font-style: italic;
+    font-weight: 100;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: rgb(66, 63, 63);
+}
+
+.linkText {
+    color: black !important;
+}

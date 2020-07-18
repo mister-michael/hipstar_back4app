@@ -1,0 +1,206 @@
+/* search results buttons css below */
+
+.unlovedBtn {
+  border: solid 2px rgba(231, 111, 129, 0.808) !important;
+  color: rgba(222,72,72,0.7443590255591055);
+  margin-right: 1px;
+  margin-left: 1px;
+  
+}
+
+.unhatedBtn {
+  border: solid 2px rgb(40, 249, 179) !important;
+  color: rgb(40, 249, 179);
+  margin-right: 1px;
+  margin-left: 1px;
+}
+
+.lovedBtn {
+  background-color: rgba(222,72,72,0.7443590255591055) !important;
+  color: white !important;
+  margin-right: 1px;
+  margin-left: 1px;
+}
+
+.hatedBtn {
+  background-color: rgb(178, 245, 223) !important;
+  border: solid 2px rgb(40, 226, 164) !important;
+  color: rgb(19, 19, 19) !important;
+  margin-right: 1px;
+  margin-left: 1px;
+}
+
+.forgetBtn {
+  background-color: white !important;
+  border-color: gray !important;
+  box-shadow: 0px 0px 5px gray;
+  border: solid 0px rgba(75, 82, 91, 0.769) !important;
+  /* color:  rgb(66, 142, 235) !important; */
+  margin-right: 1px;
+  margin-left: 10px;
+  font-weight: bold !important;
+}
+.profileForgetButton {
+  background-color: white !important;
+  border-color: gray !important;
+  box-shadow: 0px 0px 5px gray;
+  border: solid 0px rgba(75, 82, 91, 0.769) !important;
+  color:  rgb(176, 190, 208) !important;
+  margin-right: -10px;
+  margin-left: 7px;
+  font-weight: bold !important;
+}
+.profileUnhatedButton {
+  background-color: rgb(255, 255, 255) !important;
+  color: rgb(124, 148, 140) !important;
+  border: solid 2px rgba(155, 238, 210, 0.447) !important;
+  box-shadow: 0px 0px 3px gray !important;
+  margin: 0px 3px 10px;
+}
+.profileHatedButton {
+  background-color: rgb(79, 79, 79) !important;
+  color: rgb(255, 255, 255) !important;
+  border: solid 3px rgb(109, 235, 74) !important;
+  /* box-shadow: 0px 0px 5px gray; */
+  margin: 0px 3px 10px ;
+}
+.profileUnlovedButton {
+  background-color: rgba(245, 222, 222, 0.118) !important;
+  color:  rgba(224, 143, 156, 0.808) !important;
+  border: 2px solid rgba(254, 195, 185, 0.808) !important;
+  box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.55);
+  margin: 0px 3px 10px;
+}
+.profileLovedButton {
+  background-color: rgb(79, 79, 79) !important;
+  border: solid 2px rgb(254, 115, 83) !important;
+  /* background-color: rgba(222,72,72,0.7443590255591055) !important; */
+  color: white !important;
+  box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.55);
+  margin: 0px 3px 10px ;
+}
+
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+/* search result cards */
+
+.cardImage {
+  min-width: 200px;
+  max-width: 200px;
+}
+.cardTitle {
+  margin: 5px 7px;
+}
+
+.cardGroup {
+  min-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  
+}
+
+/* search bar  */
+.movieSearchInput {
+  padding-left: .07em;
+  padding-top: .5em;
+  min-width: 200px !important;
+  min-height: 45px !important;
+  font-style: italic;
+  color: black;
+  font-size: medium;
+}
+
+.movieCard {
+  margin-bottom: 20px;
+  margin-right: 2px;
+  margin-left: 5px;
+  max-width: 200px;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+.loveHateTitle {
+  margin-left: 3px;
+  margin-top: 3px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.marginBottom {
+  margin-top: 0px !important;
+}
+
+.modal-body {
+  margin-bottom: 0px !important;
+}
+
+/* .commentContainer {
+  display: flex;
+justify-content: flex-start;
+} */
+
+.modalHeaderText {
+  font-size: xx-large !important;
+}
+
+.modalHeaderGreen {
+  background-color: rgba(59, 249, 192, 0.18) !important;
+}
+
+
+.modalHeaderRed {
+  background-color: rgba(248, 201, 196, 0.324) !important;
+}
+
+.releaseDateDetails {
+  font-weight: 250;
+  font-size: x-large;
+  font-style: normal;
+  padding-left: 12px;
+}
+
+
+
+.marginTopSmall {
+  margin-top: 5px;
+}
+
+.marginBottomSmall {
+  margin-bottom: 3px;
+}
+
+.modalModel {
+  min-width: 358px !important;
+  width: 60% !important;
+  max-width: 800px !important;
+  max-height: 90% !important;
+}
+
+.detailsImage {
+  width: 10% !important;
+}
+
+/* .searchInput {
+  min-width: 100px !important;
+} */
+
+.searchInstructions {
+  font-size: large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: italic;
+  margin-left: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+.resultsPage {
+  display: flexbox;
+  justify-content: center;
+  padding: 0px 10px;
+}
