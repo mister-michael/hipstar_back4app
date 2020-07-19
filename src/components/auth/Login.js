@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {Card, Button, CardHeader,CardFooter,CardBody,InputGroup,InputGroupAddon,Input,InputGroupButtonDropdown,DropdownToggle,DropdownMenu,DropdownItem} from 'reactstrap';
 import { Link } from "react-router-dom";
+import dbAPI from "../../modules/dbAPI"
 import jAPI from "../../modules/apiManager";
 import "./LoginRegister.css";
 
 const Login = props => {
-    const [credentials, setCredentials] = useState({ input: "" });
+    const [credentials, setCredentials] = useState({});
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [symbol, setSymbol] = useState({ symbol: "@", placeholder: "username" });
 
@@ -25,17 +26,22 @@ const Login = props => {
         setCredentials(stateToChange);
     };
     const handleLogin = (evt) => {
-        jAPI.get("users")
-            .then(users => {
-                const user = users.find(user => (user.email.toLowerCase() === credentials.input.toLowerCase()) || (user.username.toLowerCase() === credentials.input.toLocaleLowerCase()))
-                if (user !== undefined) {
-                    sessionStorage.setItem("userId", user.id)
-                    props.setUser(credentials)
-                    props.history.push("/profile")
-                } else {
-                    window.alert("try again")
-                }
-            });
+        dbAPI.loginUser(credentials).then(res => {
+            console.log(res, res.id)
+            props.setUser(res.id)
+            props.history.push("/search")
+        })
+        // jAPI.get("users")
+        //     .then(users => {
+        //         const user = users.find(user => (user.email.toLowerCase() === credentials.input.toLowerCase()) || (user.username.toLowerCase() === credentials.input.toLocaleLowerCase()))
+        //         if (user !== undefined) {
+        //             sessionStorage.setItem("userId", user.id)
+        //             props.setUser(credentials)
+        //             props.history.push("/profile")
+        //         } else {
+        //             window.alert("try again")
+        //         }
+        //     });
     };
 
     useEffect(() => {
@@ -47,7 +53,7 @@ const Login = props => {
             <Card className="loginCard boxShadow">
                 <CardHeader className="headlineGreen blackText" > h ! p S t @ r </CardHeader>
                 <CardBody >
-                    <InputGroup className="marginTopSmall">
+                    {/* <InputGroup className="marginTopSmall">
                         <InputGroupAddon addonType="prepend" >
                             <InputGroupButtonDropdown addonType="append"
                                 isOpen={dropdownOpen}
@@ -71,7 +77,10 @@ const Login = props => {
                         <InputGroupAddon addonType="append" >
                             <Button onClick={handleLogin} > sign in </Button>
                         </InputGroupAddon>
-                    </InputGroup>
+                    </InputGroup> */}
+                    <input type="text" id="username" placeholder="username" onKeyUp={handleFieldChange}/>
+                    <input type="text" id="password" placeholder="password" onKeyUp={handleFieldChange}/>
+                    <button type="submit" onClick={handleLogin}>Submit</button>
                 </CardBody>
                 <CardFooter className="flex">
                     <Link to="/register" style={{ textDecoration: 'none' }} className="registerLink" >

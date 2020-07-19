@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import "./Search.css"
 import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
+import dbAPI from "../../modules/dbAPI"
 import {
   Card, Button, CardImg, CardTitle, CardText, CardGroup,
   CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
@@ -47,7 +48,7 @@ const SearchCard = (props) => {
 
 
   const buttons = () => {
-    jAPI.userMovieExpand("loveHates", activeUserId)
+    dbAPI.userMovieExpand(mdbId)
       .then(movies => {
         if (movies.length > 0) {
           for (let i = 0; i < movies.length; i++) {

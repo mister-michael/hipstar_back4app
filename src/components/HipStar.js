@@ -1,14 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import AppViews from "./AppViews"
 import NavBar from "./nav/NavBar"
 
 const HipStar = (props) => {
 
-  const isAuthenticated = () => sessionStorage.getItem("userId") !== null;
+  const isAuthenticated = () => sessionStorage.getItem("userId") !== null ? true : false
   const [hasUser, setHasUser] = useState(isAuthenticated()); 
 
-  const setUser = (user) => {
-    sessionStorage.setItem("credentials", JSON.stringify(user));
+  const setUser = (userId) => {
+    sessionStorage.setItem("userId", userId);
     setHasUser(isAuthenticated()); 
   }
 
@@ -16,6 +16,10 @@ const HipStar = (props) => {
     sessionStorage.clear();
     setHasUser(isAuthenticated()); 
   }
+
+  useEffect(()=>{
+
+  },[hasUser])
 
   return (
     <>

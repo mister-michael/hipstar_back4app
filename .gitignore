@@ -23,4 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 database.json
+movies.json
 apiKey.js
+dbAPI.js
+
+jeremydbAPI.js
