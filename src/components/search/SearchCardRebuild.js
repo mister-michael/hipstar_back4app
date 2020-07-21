@@ -8,6 +8,8 @@ const SearchCardRebuild = props => {
 
     const [buttonText, setButtonText] = useState({ loveText: "Love", hateText: "Hate" })
 
+    const [movie, setMovie] = useState(props.result)
+
     const [refresh, setRefresh] = useState(false)
 
     console.log(props.result)
@@ -46,14 +48,20 @@ const SearchCardRebuild = props => {
                     buttonTextState["loveText"] = "Loved"
                     setButtonClass(buttonClassState)
                     setButtonText(buttonTextState)
-                    
+                } else {
+                    setButtonClass(buttonClassState)
+                    setButtonText(buttonTextState)
                 }
             })
+    };
+
+    const updateLoveHate = () => {
+        
     }
 
     useEffect(() => {
         isMovieRated();
-    }, [props.searchResults])
+    }, [movie])
 
     return (
         <>
