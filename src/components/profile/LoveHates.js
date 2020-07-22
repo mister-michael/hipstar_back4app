@@ -138,7 +138,7 @@ const LoveHates = (props) => {
                 <span className="releaseDateDetails">{release()}</span>
               </ModalHeader>
               <ModalBody>
-                <MovieDetails movieObject={fetchedMovieObject} dbid={fetchedMovieObject.id} />
+                <MovieDetails posterPath={imageHandler()}movieObject={fetchedMovieObject} dbid={fetchedMovieObject.id} />
             <Comment
               isLovehate={isLoveHate}
               setIsLoveHate={setIsLoveHate}
