@@ -26,9 +26,6 @@ const SearchCardRebuild = props => {
     const buttonClassState = { ...buttonClass }
     const buttonTextState = { ...buttonText }
 
-    // console.log(props.result)
-    
-
     let poster = (int) => {
         const randomN = Math.ceil(Math.random() * int)
         return require(`../img/image-unavailable--${randomN}.jpg`)
@@ -48,8 +45,6 @@ const SearchCardRebuild = props => {
 
 
                 if (res.length > 0 && res[0].attributes.isHated === true) {
-                    console.log(res.length, "= RES LENGTH", res[0].attributes.isHated, "= isHated")
-                    console.log("if 1")
                     buttonClassState["hateClass"] = "profileHatedButton"
                     buttonTextState["hateText"] = "Hated"
                     setHateButtonClass("profileHatedButton")
@@ -61,15 +56,12 @@ const SearchCardRebuild = props => {
                     setLHid(res[0].id)
 
                 } else if (res.length > 0 && res[0].attributes.isHated === false) {
-                    console.log(res[0].id)
-                    console.log(res.length, "= RES LENGTH", res[0].attributes.isHated, "= isHated")
-                    console.log("if 2");
                     buttonClassState["loveClass"] = "profileLovedButton"
                     buttonTextState["loveText"] = "Loved"
                     setLoveButtonClass("profileLovedButton")
-                    setLoveButtonText("Loved")
                     setButtonClass(buttonClassState)
                     setButtonText(buttonTextState)
+                    setLoveButtonText("Loved")
                     setLoveButtonDisabled(true)
                     setDeleteButtonDisabled(false)
                     setLHid(res[0].id)
@@ -100,12 +92,10 @@ const SearchCardRebuild = props => {
                     setDeleteButtonDisabled(false)
                     setLHid(res.id)
                     setRefresh(1)
-                }
-                );
-            // setRefresh(true)
+                });
         } else {
             await dbAPI.saveEditedObjectByClassNameAndObjId("loveHates", LHid, loveHateObj)
-                .then(res => {
+                .then(() => {
                     setLoveButtonClass("profileLovedButton")
                     setLoveButtonText("Loved")
                     setHateButtonClass("closeButtonColor")
@@ -137,7 +127,6 @@ const SearchCardRebuild = props => {
                     setLHid(res.id)
                     setRefresh(1)
                 });
-            // setRefresh(true)
         } else {
             await dbAPI.saveEditedObjectByClassNameAndObjId("loveHates", LHid, loveHateObj)
                 .then(res => {
@@ -151,13 +140,11 @@ const SearchCardRebuild = props => {
                     setRefresh(1)
                 });
         }
-
     };
 
     async function handleDelete() {
         await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
             .then(res => {
-                console.log(res)
                 setLoveButtonClass("closeButtonColor")
                 setLoveButtonText("Love")
                 setHateButtonClass("closeButtonColor")
@@ -168,9 +155,7 @@ const SearchCardRebuild = props => {
                 setLHid(null)
                 setRefresh(1)
             });
-
     }
-
 
     useEffect(() => {
         isMovieRated();
@@ -185,11 +170,11 @@ const SearchCardRebuild = props => {
                 <button
                     className={loveButtonClass}
                     onClick={handleLove}
-                    disabled={LoveButtonDisabled}>{buttonText.loveText}</button>
+                    disabled={LoveButtonDisabled}>{loveButtonText}</button>
                 <button
                     className={hateButtonClass}
                     onClick={handleHate}
-                    disabled={hateButtonDisabled}>{buttonText.hateText}</button>
+                    disabled={hateButtonDisabled}>{hateButtonText}</button>
                 <button
                     onClick={handleDelete}
                     className="closeButtonColor"

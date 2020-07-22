@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input, CardFooter } from "reactstrap";
-// import jAPI from "../../modules/apiManager";
 import dbAPI from "../../modules/dbAPI";
 import CommentCard from "./CommentCard";
-import mAPI from "../../modules/movieManager";
 
 const Comment = (props) => {
 
-    console.log("COMMENT COMPONENT TRIGGERED")
 
     const [comments, setComments] = useState([]);
     const [review, setReview] = useState({ review: "" });
@@ -24,7 +21,6 @@ const Comment = (props) => {
                 props.setDidUserComment(true);
                 props.setUserCommentId(res.id)
             }
-            console.log(res, "COMMENTS COMMMENTS COMMENTS")
             setComments(res.reverse())
             // props.setCommentRefresh(!props.commentRefresh);
         })
@@ -76,10 +72,8 @@ const Comment = (props) => {
     const targetInput = document.getElementById("review");
 
     const saveReview = (evt) => {
-        console.log(reviewObject, "REVIEW OBJECT")
         dbAPI.createNewObjectByClassName("comments", reviewObject)
             .then(res => {
-                console.log(res, "SAVE COMMENT RES");
                 props.setRefresh(!props.refresh);
                 props.setCommentRefresh(!props.commentRefresh);
                 props.setDidUserComment(true);
@@ -129,7 +123,6 @@ const Comment = (props) => {
 
             <div className="scrollBox">
                 {comments.map(res => {
-                    console.log(res, "COMMENTS.MAP")
                     return (
                         <CommentCard
                             key={res.id}
@@ -139,6 +132,7 @@ const Comment = (props) => {
                             userId={res.attributes.userId}
                             activeUserId={props.activeUserId}
                             comment={res.attributes.comment}
+                            getComments={getComments}
                             // findMovieIdGetComments={findMovieIdGetComments}
                             didUserComment={props.didUserComment}
                             setDidUserComment={props.setDidUserComment}
@@ -146,6 +140,8 @@ const Comment = (props) => {
                             setUserCommentId={props.setUserCommentId}
                             {...props} 
                             user={props.user}
+                            setRefresh={setRefresh}
+                            refresh={refresh}
                             />)
                 })}
             </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-// import jAPI from "../../modules/apiManager";
 import dbAPI from "../../modules/dbAPI";
 import LoveHates from "./LoveHates"
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
@@ -20,7 +19,6 @@ const Profile = props => {
   async function getUserObject(userId) {
     return await dbAPI.fetchObjectByClassNameAndId("User", userId)
       .then(user => {
-        console.log(user.attributes.username)
         setUserObject(user)
       })
   }
@@ -28,12 +26,10 @@ const Profile = props => {
   async function getUserMovies (id) {
     return dbAPI.getLoveHates(id)
       .then(loveHates => {
-        console.log(loveHates)
+
         const loveArr = [];
         const hateArr = [];
         loveHates.forEach(lh => {
-          console.log(lh.attributes.dbid)
-          console.log("LKJSDLFKJSDFLKJ", lh.attributes.userId)
 
           const pushObject = {
             dbid: lh.attributes.dbid,

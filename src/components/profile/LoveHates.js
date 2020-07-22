@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { Button, CardImg, CardTitle, CardBody, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import jAPI from "../../modules/apiManager";
 import MovieDetails from "../card/MovieDetails";
 import Comment from "../comment/Comment"
 import "../search/Search.css";
@@ -38,7 +37,6 @@ const LoveHates = (props) => {
   const fetchMovieFromTMDB = () => {
     mAPI.searchWithId(props.movieObject.dbid)
       .then(res => {
-        console.log("FETCHED MOVIE OBJ", res)
         setFetchedMovieObject(res)
       })
   };
@@ -59,7 +57,6 @@ const LoveHates = (props) => {
   const handleClick = () => {
 
     let isHatedState = loveHateObject.isHated;
-    console.log(isHatedState, "IS HATED STATE")
 
     let isHatedObj = {
       userId: userId,
