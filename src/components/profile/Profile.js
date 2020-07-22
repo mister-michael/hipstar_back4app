@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import jAPI from "../../modules/apiManager";
+// import jAPI from "../../modules/apiManager";
 import dbAPI from "../../modules/dbAPI";
 import LoveHates from "./LoveHates"
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
@@ -25,7 +25,7 @@ const Profile = props => {
       })
   }
 
-  const getUserMovies = (id) => {
+  async function getUserMovies (id) {
     return dbAPI.getLoveHates(id)
       .then(loveHates => {
         console.log(loveHates)
@@ -42,7 +42,7 @@ const Profile = props => {
             isHated: lh.attributes.isHated
           }
 
-          if (lh.isHated !== true) {
+          if (lh.attributes.isHated !== true) {
             loveArr.push(pushObject);
           } else {
             hateArr.push(pushObject);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {CardImg, CardBody} from 'reactstrap';
+import { CardImg, CardBody } from 'reactstrap';
 import mAPI from "../../modules/movieManager"
 import jAPI from "../../modules/apiManager"
 import "./Card.css"
@@ -8,10 +8,23 @@ const MovieDetails = props => {
 
     const [movieFromDb, setMovieFromDb] = useState([]);
     const [poster, setPoster] = useState([]);
-    const movieId = parseInt(props.mdbId);
+    const dbid = props.dbid
+
+    async function getMovie() {
+        mAPI.searchWithId(dbid)
+            .then(res => {
+                setMovieFromDb(res)
+                if (res.poster_path !== null) {
+                    setPoster(imageHandler(res));
+                } else {
+                    setPoster(imageHandler(res));
+                }
+            })
+
+    }
 
     const getMovieJson = () => {
-        mAPI.searchWithId(movieId)
+        mAPI.searchWithId(dbid)
             .then(movieFromTmdb => {
                 setMovieFromDb(movieFromTmdb);
                 if (movieFromTmdb.poster_path !== null) {
@@ -21,11 +34,11 @@ const MovieDetails = props => {
                 }
                 jAPI.get("movies")
                     .then(movies => {
-                        const movieInJson = movies.find(movie => movie.dbid === movieId || movie.id === props.mvid);
+                        const movieInJson = movies.find(movie => movie.dbid === dbid || movie.id === props.mvid);
                         if (movieInJson !== undefined) {
                             if (props.isLoveHate === true) {
-                            props.setJsonId(movieInJson.id);
-                        }
+                                props.setJsonId(movieInJson.id);
+                            }
                             setMovieFromDb(movieInJson);
                         } else {
                             const movieObject = {
@@ -62,17 +75,18 @@ const MovieDetails = props => {
     };
 
     useEffect(() => {
-        getMovieJson();
+        // getMovieJson();
+        // getMovie()
     }, []);
 
     return (
         <>
             <div id={props.jsonId}>
                 <div>
-                    <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow marginTopSmall marginBottomSmall detailsImage" />
+                    <CardImg id="" top src={poster} alt={`${props.movieObject.title} poster`} className="cardImage boxShadow marginTopSmall marginBottomSmall detailsImage" />
                     <CardBody className="detailsMarginBottom">
                         <div className="overviewText detailsMarginTop">Overview</div>
-                        <div>{movieFromDb.overview}</div>
+                        <div>{props.movieObject.overview}</div>
                     </CardBody>
                 </div>
             </div>

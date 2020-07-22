@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from "react-router-dom"
 import CommentForm from "./CommentForm"
-import jAPI from "../../modules/apiManager";
+// import jAPI from "../../modules/apiManager";
 import "./Comment.css"
 
 const CommentCard = props => {
@@ -34,15 +34,15 @@ const CommentCard = props => {
     };
 
     const handleSubmit = () => {
-        jAPI.patch(commentPatch, "comments", props.commentId)
-        setModal(!modal)
-        props.findMovieIdGetComments();
+        // jAPI.patch(commentPatch, "comments", props.commentId)
+        // setModal(!modal)
+        // props.findMovieIdGetComments();
     };
 
     const handleDelete = () => {
-        jAPI.delete(props.commentId, "comments")
-        setModal(!modal)
-        props.findMovieIdGetComments();
+        // jAPI.delete(props.commentId, "comments")
+        // setModal(!modal)
+        // props.findMovieIdGetComments();
     };
 
     const linkFunction = () => {

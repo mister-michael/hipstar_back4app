@@ -10,14 +10,16 @@ import dbAPI from "../../modules/dbAPI";
 import mAPI from "../../modules/movieManager";
 
 const LoveHates = (props) => {
-  const [didUserComment, setDidUserComment] = useState(false);
-  const [userCommentId, setUserCommentId] = useState([]);
-  const [mvid, setMvid] = useState([]);
+  const [fetchedMovieObject, setFetchedMovieObject] = useState(null)
+  const [mvid, setMvid] = useState(props.movieObject.dbid);
+  
   const [refresh, setRefresh] = useState(false);
   const [modal, setModal] = useState(false);
+  
+  const [didUserComment, setDidUserComment] = useState(false);
+  const [userCommentId, setUserCommentId] = useState([]);
   const [isLoveHate, setIsLoveHate] = useState(true);
   const [commentRefresh, setCommentRefresh] = useState(false)
-  const [fetchedMovieObject, setFetchedMovieObject] = useState(null)
 
   const toggle = () => setModal(!modal);
   const [disabled, setDisabled] = useState(false);
@@ -27,10 +29,11 @@ const LoveHates = (props) => {
 
   let buttonText = "";
   let buttonClass = "";
+  loveHateObject.isHated ? buttonText = "LOVE" : buttonText = "HATE";
+  loveHateObject.isHated ? buttonClass = "closeButtonColor" : buttonClass = "closeButtonColor";
 
   const userId = props.movieObject.userId;
   const activeUserId = sessionStorage.getItem("userId");
-  console.log("userId", userId, "activeUserId", activeUserId)
 
   const fetchMovieFromTMDB = () => {
     mAPI.searchWithId(props.movieObject.dbid)
@@ -44,7 +47,6 @@ const LoveHates = (props) => {
     const randomN = Math.ceil(Math.random() * int)
     return require(`../img/image-unavailable--${randomN}.jpg`)
   };
-
   const imageHandler = () => {
     if (fetchedMovieObject.poster_path !== null) {
       return `https://image.tmdb.org/t/p/w500${fetchedMovieObject.poster_path}`;
@@ -53,8 +55,6 @@ const LoveHates = (props) => {
     };
   };
 
-  loveHateObject.isHated ? buttonText = "LOVE" : buttonText = "HATE";
-  loveHateObject.isHated ? buttonClass = "closeButtonColor" : buttonClass = "closeButtonColor";
 
   const handleClick = () => {
 
@@ -138,14 +138,13 @@ const LoveHates = (props) => {
                 <span className="releaseDateDetails">{release()}</span>
               </ModalHeader>
               <ModalBody>
-                <div>Hi</div>
-                {/* <MovieDetails mdbId={fetchedMovieObjectObject.id} />
+                <MovieDetails movieObject={fetchedMovieObject} dbid={fetchedMovieObject.id} />
             <Comment
               isLovehate={isLoveHate}
               setIsLoveHate={setIsLoveHate}
               className="commentContainer"
               mdbId={fetchedMovieObject.id}
-              mvid={mvid}
+              dbid={mvid}
               setMvid={setMvid}
               activeUserId={activeUserId}
               didUserComment={didUserComment}
@@ -155,7 +154,7 @@ const LoveHates = (props) => {
               refresh={refresh}
               setRefresh={setRefresh}
               commentRefresh={commentRefresh}
-              setCommentRefresh={setCommentRefresh} /> */}
+              setCommentRefresh={setCommentRefresh} />
               </ModalBody>
               <ModalFooter className="">
                 <Button className="closeButtonColor" onClick={toggle}>close</Button>
