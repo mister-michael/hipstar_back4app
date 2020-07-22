@@ -26,7 +26,7 @@ const Search = (props) => {
   
 
   useEffect(() => {
-  }, [results]);
+  }, []);
 
   return (
     <>
@@ -47,7 +47,7 @@ const Search = (props) => {
           {results.map(res => <SearchCard className="" loveHateId={loveHateId} setLoveHateId={setLoveHateId} keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
         </div> */}
         <div id="searchResults" className="cardGroup marginTop">
-          {results.map(res => <SearchCardRebuild searchResults={results} result={res} {...props} />)}
+          {results.map(res => <SearchCardRebuild searchResults={results} result={res} {...props} key={res.id}/>)}
         </div>
       </div>
     </>

@@ -99,6 +99,7 @@ const SearchCardRebuild = props => {
                     setHateButtonDisabled(false)
                     setDeleteButtonDisabled(false)
                     setLHid(res.id)
+                    setRefresh(1)
                 }
                 );
             // setRefresh(true)
@@ -112,6 +113,7 @@ const SearchCardRebuild = props => {
                     setLoveButtonDisabled(true)
                     setHateButtonDisabled(false)
                     setDeleteButtonDisabled(false)
+                    setRefresh(1)
                 });
         }
     };
@@ -133,6 +135,7 @@ const SearchCardRebuild = props => {
                     setHateButtonDisabled(true)
                     setDeleteButtonDisabled(false)
                     setLHid(res.id)
+                    setRefresh(1)
                 });
             // setRefresh(true)
         } else {
@@ -145,6 +148,7 @@ const SearchCardRebuild = props => {
                     setLoveButtonDisabled(false)
                     setHateButtonDisabled(true)
                     setDeleteButtonDisabled(false)
+                    setRefresh(1)
                 });
         }
 
@@ -162,7 +166,7 @@ const SearchCardRebuild = props => {
                 setHateButtonDisabled(false)
                 setDeleteButtonDisabled(true)
                 setLHid(null)
-
+                setRefresh(1)
             });
 
     }
