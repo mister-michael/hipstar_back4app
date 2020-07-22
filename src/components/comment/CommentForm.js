@@ -3,6 +3,8 @@ import { FormGroup, Input } from "reactstrap"
 
 const CommentForm = props => {
 
+    console.log(props.comment, "PROPS.COMMENT COMMENT FORM")
+
     const handleChange = (evt) => {
         const stateToChange = { ...props.editedComment };
         stateToChange[evt.target.id] = evt.target.value;

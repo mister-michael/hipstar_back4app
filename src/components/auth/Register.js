@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import jAPI from "../../modules/apiManager";
+import dbAPI from "../../modules/dbAPI";
 import { Link } from "react-router-dom"
 import { InputGroup, CardFooter, CardHeader, InputGroupAddon, Input, Card } from 'reactstrap';
 import "./LoginRegister.css"
@@ -8,8 +9,7 @@ const RegisterForm = props => {
     const [credentials, setCredentials] = useState({
         username: "",
         email: "",
-        imgUrl: "",
-        logoutTime: ""
+        password: ""
     });
 
     const handleFieldChange = evt => {
@@ -18,7 +18,7 @@ const RegisterForm = props => {
         setCredentials(stateToChange);
     };
 
-    const handleRegister = () => {
+    async function handleRegister() {
 
         const emailArr = credentials.email.split("");
         const emailArrFind = emailArr.find(char => char === "@");
@@ -34,29 +34,41 @@ const RegisterForm = props => {
             window.alert("username can not be more than 16 characters");
 
         } else {
-            jAPI.get("users").then(users => {
-                const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
-                const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
+            await dbAPI.signUpUser(credentials).then(()=> props.history.push("/search"))
+                        
 
-                if (email === undefined && name === undefined) {
+            // dbAPI.getAll("User").then(users => {
+                
+            //     const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
+            //     const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
 
-                    jAPI.save(credentials, "users")
-                        .then(() =>
+            //     if (email === undefined && name === undefined) {
 
-                            jAPI.get("users").then(users => {
-                                const newUser = users.find(newUser => newUser.email.toLowerCase() === credentials.email.toLowerCase());
-                                sessionStorage.setItem("userId", newUser.id);
-                                props.setUser(credentials);
-                                props.history.push("/search");
-                            }));
+            //         dbAPI.signUpUser(credentials)
+            //             .then(res => {
+            //                 sessionStorage.setItem("userId", res.objectId);
+            //                 props.setUser(credentials);
+            //                 props.history.push("/search")
+            //             });
 
-                } else if (email !== undefined) {
-                    window.alert("email already exists");
+            //             //
+            //             // () =>
 
-                } else if (name !== undefined) {
-                    window.alert("username already exists");
-                }
-            });
+            //             //     jAPI.get("users").then(users => {
+            //             //         const newUser = users.find(newUser => newUser.email.toLowerCase() === credentials.email.toLowerCase());
+            //             //         sessionStorage.setItem("userId", newUser.id);
+            //             //         props.setUser(credentials);
+            //             //         props.history.push("/search");
+            //             //     })
+            //             //
+
+            //     } else if (email !== undefined) {
+            //         window.alert("email already exists");
+
+            //     } else if (name !== undefined) {
+            //         window.alert("username already exists");
+            //     }
+            // });
         }
 
     };
@@ -65,6 +77,7 @@ const RegisterForm = props => {
         <div className="register" >
             <CardHeader className="headlineRed" > < h2 > Sign Up </h2></CardHeader >
             <Card className="registerCard" >
+
                 <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend" className="registerUsername">
                         username </InputGroupAddon>
@@ -75,6 +88,7 @@ const RegisterForm = props => {
                         className="registerUsername"
                         placeholder="" />
                 </InputGroup> <br />
+
                 <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend" className="registerEmail">
                         email
@@ -87,6 +101,20 @@ const RegisterForm = props => {
                         id="email"
                         placeholder="" />
                 </InputGroup> <br />
+                
+                <InputGroup size="sm" >
+                    <InputGroupAddon addonType="prepend" className="registerEmail">
+                        password
+                        </InputGroupAddon>
+                    <Input
+                        addonType="prepend"
+                        onChange={handleFieldChange}
+                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
+                        type="password"
+                        id="password"
+                        placeholder="" />
+                </InputGroup> <br />
+
                 <CardFooter >
                     < div className="rightAlign smallText" >
                         <Link to="/login" className="signLink" style={{ textDecoration: 'none' }} >

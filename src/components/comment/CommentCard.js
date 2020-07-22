@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from "react-router-dom"
 import CommentForm from "./CommentForm"
-import jAPI from "../../modules/apiManager";
 import "./Comment.css"
+import dbAPI from "../../modules/dbAPI";
 
 const CommentCard = props => {
 
+
     const [modal, setModal] = useState(false);
     const [editedComment, setEditedComment] = useState({ comment: props.comment });
+    const [username, setUsername] = useState(null)
 
-    const didUserComment = props.didUserComment;
     const activeUserId = props.activeUserId;
     const commentUserId = props.userId;
+    const commentId = props.commentId
+    console.log(props.userId, activeUserId)
     const numberOfStylesInCss = 3;
 
     const toggle = () => {
@@ -20,6 +23,14 @@ const CommentCard = props => {
             setModal(!modal);
         }
     };
+
+    const getUsername = () => {
+        dbAPI.fetchObjectByClassNameAndId("User", props.userId)
+            .then(res => {
+                setUsername(res.attributes.username)
+                console.log(res.attributes.username, "USERNAME")
+            })
+    }
 
     const randomN = (int) => {
         if (props.userId === props.activeUserId) {
@@ -30,19 +41,26 @@ const CommentCard = props => {
     };
 
     const commentPatch = {
+        userId: activeUserId,
+        dbid: props.dbid,
         comment: editedComment.comment
     };
 
-    const handleSubmit = () => {
-        jAPI.patch(commentPatch, "comments", props.commentId)
-        setModal(!modal)
-        props.findMovieIdGetComments();
+    async function handleSubmit() {
+        await dbAPI.saveEditedObjectByClassNameAndObjId("comments", commentId, commentPatch)
+            .then(() => {
+                setModal(!modal);
+                props.getComments();
+                props.setRefresh(!props.refresh)
+            })
     };
 
     const handleDelete = () => {
-        jAPI.delete(props.commentId, "comments")
-        setModal(!modal)
-        props.findMovieIdGetComments();
+        dbAPI.deleteObjectByClassNameAndId("comments", commentId)
+            .then(() => {
+                props.getComments();
+                props.setRefresh(!props.refresh)
+            })
     };
 
     const linkFunction = () => {
@@ -53,16 +71,20 @@ const CommentCard = props => {
         }
     };
 
+    useEffect(() => {
+        getUsername()
+    }, [])
+
     return (
         <>
             <div className="commentContainer" onClick={toggle}>
                 <Link to={linkFunction} className="linkText">
-                    <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
+                    <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{username} says...</div>
                 </Link>
-                <div className="commentBox">{props.result.comment}</div>
+                <div className="commentBox">{props.result.attributes.comment}</div>
             </div>
             <Modal isOpen={modal} toggle={toggle} className="editModal">
-                <ModalHeader toggle={toggle}>{props.result.user.username} says...</ModalHeader>
+                <ModalHeader toggle={toggle}>{username} says...</ModalHeader>
                 <ModalBody className="marginBottom detailsMarginTop">
                     <CommentForm
                         comment={props.comment}
@@ -73,7 +95,6 @@ const CommentCard = props => {
                 <ModalFooter>
                     <Button className="saveButtonColor" onClick={handleSubmit}>save</Button>{' '}
                     <Button className="reviewButtonColor" onClick={handleDelete}>delete</Button>{' '}
-                    {/* <Button color="secondary" onClick={toggle}>cancel</Button> */}
                 </ModalFooter>
             </Modal>
         </>

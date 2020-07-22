@@ -1,43 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input, CardFooter } from "reactstrap";
-import jAPI from "../../modules/apiManager";
+import dbAPI from "../../modules/dbAPI";
 import CommentCard from "./CommentCard";
 
 const Comment = (props) => {
 
+
     const [comments, setComments] = useState([]);
     const [review, setReview] = useState({ review: "" });
     const [reviewButtonClass, setReviewButtonClass] = useState("buttonMarginBottom reviewButtonColor justifyRight");
+    const [refresh, setRefresh] = useState(null)
 
-    const mdbId = props.mdbId;
+    const dbid = props.dbid;
 
-    const findMovieIdGetComments = () => {
+    async function getComments (id) {
+        await dbAPI.getComments(id)
+        .then(res => {
+            const userComments = res.filter(comment => comment.attributes.userId === props.activeUserId);
+            if (userComments.length > 0) {
+                props.setDidUserComment(true);
+                props.setUserCommentId(res.id)
+            }
+            console.log(res, "RES 24 COMMENT")
+            setComments(res.reverse())
+            // props.setCommentRefresh(!props.commentRefresh);
+        })
+    }
 
-        jAPI.get("movies")
-            .then(movies => {
-                const matchedMovie = movies.find(movie => movie.dbid === mdbId);
-                let mvidHolder = "";
-                matchedMovie ? mvidHolder = matchedMovie.id : mvidHolder = props.mvid;
-                props.setMvid(mvidHolder);
-                jAPI.expand("comments", "user")
-                    .then(comments => {
-                        const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
-                        const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
-                        setComments(matchedComments.reverse());
-                        props.setCommentRefresh(!props.commentRefresh);
-                        if (matchedToActiveUser.length > 0) {
-                            props.setDidUserComment(true);
-                            props.setUserCommentId(matchedToActiveUser[0].id);
-                            setComments(matchedComments.reverse());
-                        }
+    // const findMovieIdGetComments = () => {
 
-                    });
-            });
-    };
+    //     jAPI.get("movies")
+    //         .then(movies => {
+    //             const matchedMovie = movies.find(movie => movie.dbid === dbid);
+    //             let mvidHolder = "";
+    //             matchedMovie ? mvidHolder = matchedMovie.id : mvidHolder = props.mvid;
+    //             props.setMvid(mvidHolder);
+    //             jAPI.expand("comments", "user")
+    //                 .then(comments => {
+    //                     const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
+    //                     const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
+    //                     setComments(matchedComments.reverse());
+    //                     props.setCommentRefresh(!props.commentRefresh);
+    //                     if (matchedToActiveUser.length > 0) {
+    //                         props.setDidUserComment(true);
+    //                         props.setUserCommentId(matchedToActiveUser[0].id);
+    //                         setComments(matchedComments.reverse());
+    //                     }
+
+    //                 });
+    //         });
+    // };
 
     let reviewObject = {
         userId: props.activeUserId,
-        movieId: props.mvid,
+        dbid: props.dbid,
         comment: review.review
     };
 
@@ -57,11 +73,13 @@ const Comment = (props) => {
     const targetInput = document.getElementById("review");
 
     const saveReview = (evt) => {
-        jAPI.save(reviewObject, "comments")
-            .then(() => {
+        dbAPI.createNewObjectByClassName("comments", reviewObject)
+            .then(res => {
                 props.setRefresh(!props.refresh);
+                props.setCommentRefresh(!props.commentRefresh);
                 props.setDidUserComment(true);
                 targetInput.value = "";
+                setRefresh(true)
             });
     };
 
@@ -76,8 +94,10 @@ const Comment = (props) => {
     };
 
     useEffect(() => {
-        findMovieIdGetComments();
-    }, [props.refresh]);
+        // findMovieIdGetComments();
+        getComments(dbid);
+        setRefresh(null)
+    }, [refresh]);
 
     return (
         <div id="" className="reviewDiv">
@@ -104,21 +124,27 @@ const Comment = (props) => {
 
             <div className="scrollBox">
                 {comments.map(res => {
+                    console.log(res.attributes.userId)
                     return (
                         <CommentCard
                             key={res.id}
                             commentId={res.id}
-                            movieId={res.movieId}
+                            dbid={res.dbid}
                             result={res}
-                            userId={res.userId}
+                            userId={res.attributes.userId}
                             activeUserId={props.activeUserId}
-                            comment={res.comment}
-                            findMovieIdGetComments={findMovieIdGetComments}
+                            comment={res.attributes.comment}
+                            getComments={getComments}
+                            // findMovieIdGetComments={findMovieIdGetComments}
                             didUserComment={props.didUserComment}
                             setDidUserComment={props.setDidUserComment}
                             userCommentId={props.userCommentId}
                             setUserCommentId={props.setUserCommentId}
-                            {...props} />)
+                            {...props} 
+                            user={props.user}
+                            setRefresh={setRefresh}
+                            refresh={refresh}
+                            />)
                 })}
             </div>
         </div >

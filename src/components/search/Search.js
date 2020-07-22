@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import mAPI from "../../modules/movieManager"
-import SearchCard from "./SearchCard"
+import SearchCardRebuild from "./SearchCardRebuild"
 import "./Search.css"
 
 const Search = (props) => {
 
   const [keyword, setKeyword] = useState({ searchInput: "" });
   const [results, setResults] = useState([]);
-  const [loveHateId, setLoveHateId] = useState(false);
-
-  const searchInput = document.getElementById("searchInput");
 
   const handleFieldChange = evt => {
     const stateToChange = { ...keyword };
@@ -18,14 +15,13 @@ const Search = (props) => {
   };
 
   const handleSearch = () => {
-
     const stringArr = keyword.searchInput.split(" ").join("+");
-
     mAPI.search(stringArr)
       .then(searchResults => {
         setResults(searchResults.results);
       });
   };
+  
 
   useEffect(() => {
   }, []);
@@ -46,7 +42,7 @@ const Search = (props) => {
         </div>
       <div className="resultsPage">
         <div id="searchResults" className="cardGroup marginTop">
-          {results.map(res => <SearchCard className="" loveHateId={loveHateId} setLoveHateId={setLoveHateId} keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
+          {results.map(res => <SearchCardRebuild searchResults={results} result={res} {...props} key={res.id}/>)}
         </div>
       </div>
     </>

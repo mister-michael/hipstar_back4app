@@ -14,7 +14,8 @@ const NavBar = props => {
   }
 
   useEffect(() => {
-  }, [])
+    
+  }, [props.hasUser])
 
   return (
     <>
