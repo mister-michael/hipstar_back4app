@@ -26,6 +26,14 @@ const SearchCard = (props) => {
     return require(`../img/image-unavailable--${randomN}.jpg`)
   };
 
+  const imageHandler = () => {
+    if (props.result.poster_path !== null) {
+      return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`;
+    } else {
+      return poster(5);
+    };
+  };
+
   let loveHateFoundId = ""
 
   const [loveBtnState, setLoveBtnState] = useState({ name: "" });
@@ -236,13 +244,7 @@ const SearchCard = (props) => {
     };
   };
 
-  const imageHandler = () => {
-    if (props.result.poster_path !== null) {
-      return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`;
-    } else {
-      return poster(5);
-    };
-  };
+  
 
 
   useEffect(() => {
