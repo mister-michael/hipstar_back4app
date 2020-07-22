@@ -7,16 +7,26 @@ import mAPI from "../../modules/movieManager";
 
 const Comment = (props) => {
 
+    console.log("COMMENT COMPONENT TRIGGERED")
+
     const [comments, setComments] = useState([]);
     const [review, setReview] = useState({ review: "" });
     const [reviewButtonClass, setReviewButtonClass] = useState("buttonMarginBottom reviewButtonColor justifyRight");
+    const [refresh, setRefresh] = useState(null)
 
     const dbid = props.dbid;
 
-    async function getComments () {
-        dbAPI.getComments(props.dbid)
+    async function getComments (id) {
+        await dbAPI.getComments(id)
         .then(res => {
-            console.log(res)
+            const userComments = res.filter(comment => comment.attributes.userId === props.activeUserId);
+            if (userComments.length > 0) {
+                props.setDidUserComment(true);
+                props.setUserCommentId(res.id)
+            }
+            console.log(res, "COMMENTS COMMMENTS COMMENTS")
+            setComments(res.reverse())
+            // props.setCommentRefresh(!props.commentRefresh);
         })
     }
 
@@ -71,8 +81,10 @@ const Comment = (props) => {
             .then(res => {
                 console.log(res, "SAVE COMMENT RES");
                 props.setRefresh(!props.refresh);
+                props.setCommentRefresh(!props.commentRefresh);
                 props.setDidUserComment(true);
                 targetInput.value = "";
+                setRefresh(true)
             });
     };
 
@@ -88,8 +100,9 @@ const Comment = (props) => {
 
     useEffect(() => {
         // findMovieIdGetComments();
-        getComments();
-    }, []);
+        getComments(dbid);
+        setRefresh(null)
+    }, [refresh]);
 
     return (
         <div id="" className="reviewDiv">
@@ -116,21 +129,24 @@ const Comment = (props) => {
 
             <div className="scrollBox">
                 {comments.map(res => {
+                    console.log(res, "COMMENTS.MAP")
                     return (
                         <CommentCard
                             key={res.id}
                             commentId={res.id}
-                            movieId={res.movieId}
+                            dbid={res.dbid}
                             result={res}
-                            userId={res.userId}
+                            userId={res.attributes.userId}
                             activeUserId={props.activeUserId}
-                            comment={res.comment}
+                            comment={res.attributes.comment}
                             // findMovieIdGetComments={findMovieIdGetComments}
                             didUserComment={props.didUserComment}
                             setDidUserComment={props.setDidUserComment}
                             userCommentId={props.userCommentId}
                             setUserCommentId={props.setUserCommentId}
-                            {...props} />)
+                            {...props} 
+                            user={props.user}
+                            />)
                 })}
             </div>
         </div >

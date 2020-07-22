@@ -98,6 +98,7 @@ const Profile = props => {
                   className="cardGroup profileResultsPage">
                   {hateState.map(res =>
                     <LoveHates
+                    user={userObject}
                       key={res.dbid}
                       loveHateObject={res}
                       getUserMovies={getUserMovies}
@@ -132,6 +133,7 @@ const Profile = props => {
                       setIsActiveUser={setIsActiveUser}
                       {...props}
 
+                      user={userObject}
                       movieObject={res}
                     />)
 

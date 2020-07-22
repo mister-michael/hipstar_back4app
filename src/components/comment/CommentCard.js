@@ -7,6 +7,8 @@ import "./Comment.css"
 
 const CommentCard = props => {
 
+
+    console.log(props.comment, "PROPS.COMMENT COMMENT CARD")
     const [modal, setModal] = useState(false);
     const [editedComment, setEditedComment] = useState({ comment: props.comment });
 
@@ -57,12 +59,12 @@ const CommentCard = props => {
         <>
             <div className="commentContainer" onClick={toggle}>
                 <Link to={linkFunction} className="linkText">
-                    <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
+                    <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.user.attributes.username} says...</div>
                 </Link>
-                <div className="commentBox">{props.result.comment}</div>
+                <div className="commentBox">{props.result.attributes.comment}</div>
             </div>
             <Modal isOpen={modal} toggle={toggle} className="editModal">
-                <ModalHeader toggle={toggle}>{props.result.user.username} says...</ModalHeader>
+                <ModalHeader toggle={toggle}>{props.user.attributes.username} says...</ModalHeader>
                 <ModalBody className="marginBottom detailsMarginTop">
                     <CommentForm
                         comment={props.comment}

@@ -11,7 +11,7 @@ import mAPI from "../../modules/movieManager";
 
 const LoveHates = (props) => {
   const [fetchedMovieObject, setFetchedMovieObject] = useState(null)
-  const [mvid, setMvid] = useState(props.movieObject.dbid);
+  const [dbid, setDBID] = useState(props.movieObject.dbid);
   
   const [refresh, setRefresh] = useState(false);
   const [modal, setModal] = useState(false);
@@ -144,8 +144,8 @@ const LoveHates = (props) => {
               setIsLoveHate={setIsLoveHate}
               className="commentContainer"
               mdbId={fetchedMovieObject.id}
-              dbid={mvid}
-              setMvid={setMvid}
+              dbid={dbid}
+              setMvid={setDBID}
               activeUserId={activeUserId}
               didUserComment={didUserComment}
               setDidUserComment={setDidUserComment}
@@ -154,7 +154,8 @@ const LoveHates = (props) => {
               refresh={refresh}
               setRefresh={setRefresh}
               commentRefresh={commentRefresh}
-              setCommentRefresh={setCommentRefresh} />
+              setCommentRefresh={setCommentRefresh} 
+              user={props.user}/>
               </ModalBody>
               <ModalFooter className="">
                 <Button className="closeButtonColor" onClick={toggle}>close</Button>
