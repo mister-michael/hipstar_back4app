@@ -21,6 +21,7 @@ const Comment = (props) => {
                 props.setDidUserComment(true);
                 props.setUserCommentId(res.id)
             }
+            console.log(res, "RES 24 COMMENT")
             setComments(res.reverse())
             // props.setCommentRefresh(!props.commentRefresh);
         })
@@ -123,6 +124,7 @@ const Comment = (props) => {
 
             <div className="scrollBox">
                 {comments.map(res => {
+                    console.log(res.attributes.userId)
                     return (
                         <CommentCard
                             key={res.id}
