@@ -26,7 +26,8 @@ const SearchCardRebuild = props => {
     const buttonClassState = { ...buttonClass }
     const buttonTextState = { ...buttonText }
 
-    console.log(props.result)
+    // console.log(props.result)
+    
 
     let poster = (int) => {
         const randomN = Math.ceil(Math.random() * int)
@@ -47,8 +48,8 @@ const SearchCardRebuild = props => {
 
 
                 if (res.length > 0 && res[0].attributes.isHated === true) {
-                    // console.log(res.length, "= RES LENGTH", res[0].attributes.isHated, "= isHated")
-                    // console.log("if 1")
+                    console.log(res.length, "= RES LENGTH", res[0].attributes.isHated, "= isHated")
+                    console.log("if 1")
                     buttonClassState["hateClass"] = "profileHatedButton"
                     buttonTextState["hateText"] = "Hated"
                     setHateButtonClass("profileHatedButton")
@@ -60,8 +61,9 @@ const SearchCardRebuild = props => {
                     setLHid(res[0].id)
 
                 } else if (res.length > 0 && res[0].attributes.isHated === false) {
-                    // console.log(res.length, "= RES LENGTH", res[0].attributes.isHated, "= isHated")
-                    // console.log("if 2");
+                    console.log(res[0].id)
+                    console.log(res.length, "= RES LENGTH", res[0].attributes.isHated, "= isHated")
+                    console.log("if 2");
                     buttonClassState["loveClass"] = "profileLovedButton"
                     buttonTextState["loveText"] = "Loved"
                     setLoveButtonClass("profileLovedButton")
@@ -96,6 +98,7 @@ const SearchCardRebuild = props => {
                     setLoveButtonDisabled(true)
                     setHateButtonDisabled(false)
                     setDeleteButtonDisabled(false)
+                    setLHid(res.id)
                 }
                 );
             // setRefresh(true)
@@ -129,6 +132,7 @@ const SearchCardRebuild = props => {
                     setLoveButtonDisabled(false)
                     setHateButtonDisabled(true)
                     setDeleteButtonDisabled(false)
+                    setLHid(res.id)
                 });
             // setRefresh(true)
         } else {
@@ -157,6 +161,7 @@ const SearchCardRebuild = props => {
                 setLoveButtonDisabled(false)
                 setHateButtonDisabled(false)
                 setDeleteButtonDisabled(true)
+                setLHid(null)
 
             });
 
