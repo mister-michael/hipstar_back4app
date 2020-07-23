@@ -23,7 +23,7 @@ const Profile = props => {
       })
   }
 
-  async function getUserMovies (id) {
+  async function getUserMovies(id) {
     return dbAPI.getLoveHates(id)
       .then(loveHates => {
 
@@ -94,7 +94,7 @@ const Profile = props => {
                   className="cardGroup profileResultsPage">
                   {hateState.map(res =>
                     <LoveHates
-                    user={userObject}
+                      user={userObject}
                       key={res.dbid}
                       loveHateObject={res}
                       getUserMovies={getUserMovies}

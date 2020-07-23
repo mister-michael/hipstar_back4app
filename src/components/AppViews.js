@@ -68,12 +68,12 @@ const AppViews = (props) => {
       />
       <Route
         exact
-        path="/"
+        path="/:userId(\w+)"
         render={props => {
           if (hasUser) {
             return (
               <UserProfile
-                userId={parseInt(props.match.params.userId)}
+                userId={props.match.params.userId}
                 activeUserid={activeUserId}
                 {...props}
               />
