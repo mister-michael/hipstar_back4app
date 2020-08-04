@@ -44,7 +44,7 @@ const RecCardUpdated = props => {
     };
 
     async function isMovieRated() {
-        await dbAPI.didUserRateMovie(props.result.id)
+        await dbAPI.didUserRateMovie(props.dbid)
             .then(res => {
 
 
@@ -55,7 +55,8 @@ const RecCardUpdated = props => {
                     setHateButtonText("Hated")
                     setButtonClass(buttonClassState)
                     setButtonText(buttonTextState)
-                    setLoveButtonDisabled(true)
+                    setLoveButtonDisabled(false)
+                    setHateButtonDisabled(true)
                     setDeleteButtonDisabled(false)
                     setLHid(res[0].id)
 
@@ -67,12 +68,15 @@ const RecCardUpdated = props => {
                     setButtonText(buttonTextState)
                     setLoveButtonText("Loved")
                     setLoveButtonDisabled(true)
+                    setHateButtonDisabled(false)
                     setDeleteButtonDisabled(false)
                     setLHid(res[0].id)
                 } else {
                     setButtonClass(buttonClassState)
                     setButtonText(buttonTextState)
                     setDeleteButtonDisabled(true)
+                    setLoveButtonDisabled(false)
+                    setHateButtonDisabled(false)
 
                 }
             })
@@ -114,7 +118,7 @@ const RecCardUpdated = props => {
     async function handleLove() {
         const loveHateObj = {
             userId: activeUserId,
-            dbid: props.result.id,
+            dbid: props.dbid,
             isHated: false
         };
         if (LHid === null) {
@@ -132,7 +136,7 @@ const RecCardUpdated = props => {
                 });
         } else {
             await dbAPI.saveEditedObjectByClassNameAndObjId("loveHates", LHid, loveHateObj)
-                .then(() => {
+                .then(res => {
                     setLoveButtonClass("profileLovedButton")
                     setLoveButtonText("Loved")
                     setHateButtonClass("closeButtonColor")
@@ -140,6 +144,7 @@ const RecCardUpdated = props => {
                     setLoveButtonDisabled(true)
                     setHateButtonDisabled(false)
                     setDeleteButtonDisabled(false)
+                    // setLHid(res.id)
                     setRefresh(1)
                 });
         }
@@ -148,7 +153,7 @@ const RecCardUpdated = props => {
     async function handleHate() {
         const loveHateObj = {
             userId: activeUserId,
-            dbid: props.result.id,
+            dbid: props.dbid,
             isHated: true
         };
         if (LHid === null) {
@@ -181,7 +186,7 @@ const RecCardUpdated = props => {
 
     async function handleDelete() {
         await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
-            .then(res => {
+            .then(() => {
                 setLoveButtonClass("closeButtonColor")
                 setLoveButtonText("Love")
                 setHateButtonClass("closeButtonColor")
@@ -222,7 +227,9 @@ const RecCardUpdated = props => {
     console.log(fetchedMovieObject)
     useEffect(() => {
         fetchMovie();
-    }, [])
+        isMovieRated();
+        setRefresh(null);
+    }, [refresh])
 
     return (
         <>
@@ -233,7 +240,7 @@ const RecCardUpdated = props => {
                     <div className="movieCard">
                         <CardImg id="" top src={imageHandler()} alt={`${fetchedMovieObject.title} poster`} className="cardImage" />
                         <div>{fetchedMovieObject.title}</div>
-                        {/* <button
+                        <button
                             className={loveButtonClass}
                             onClick={handleLove}
                             disabled={loveButtonDisabled}>{loveButtonText}</button>
@@ -244,7 +251,7 @@ const RecCardUpdated = props => {
                         <button
                             onClick={handleDelete}
                             className="closeButtonColor"
-                            disabled={deleteButtonDisabled}>x</button> */}
+                            disabled={deleteButtonDisabled}>x</button>
                     </div>
 
                 </>
