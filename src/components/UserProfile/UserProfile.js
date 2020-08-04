@@ -21,7 +21,6 @@ const UserProfile = props => {
 
     const [activeTab, setActiveTab] = useState('1');
 
-    console.log(userObject)
     const toggle = tab => {
         if (activeTab !== tab) setActiveTab(tab);
     };

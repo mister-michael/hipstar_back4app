@@ -113,8 +113,10 @@ const RecList = (props) => {
         </div>
         <div className="marginTop resultsPage">
           <div className="cardGroup">
-            {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} mvid={res.movie.id}
-              {...props} />)}
+            {recommendations.map(res =>
+              <RecCard 
+              changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} mvid={res.movie.id}
+                {...props} />)}
           </div>
         </div>
       </>

@@ -6,12 +6,13 @@ import Home from "./home/Home"
 import Profile from "./profile/Profile"
 import Search from "./search/Search"
 import RecList from "./rec/RecList"
+import RecListUpdated from './rec/RecListUpdated';
 import Hpstr from "./hpstr/Hpstr"
 import UserProfile from "./UserProfile/UserProfile"
 
 const AppViews = (props) => {
   
-  const activeUserId = parseInt(sessionStorage.getItem("userId"));
+  const activeUserId = sessionStorage.getItem("userId");
   const setUser = props.setUser;
   let hasUser = props.hasUser;
 
@@ -56,7 +57,7 @@ const AppViews = (props) => {
         exact
         path="/recommendations"
         render={props => {
-          if (hasUser) { return <RecList activeUserId={activeUserId} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <RecListUpdated activeUserId={activeUserId} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
