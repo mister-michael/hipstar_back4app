@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, CardHeader, CardFooter, CardBody} from 'reactstrap';
+import { Card, CardHeader, CardFooter, CardBody } from 'reactstrap';
 import { Link } from "react-router-dom";
 import dbAPI from "../../modules/dbAPI";
 import "./LoginRegister.css";
+import "./Auth.css"
 
 const Login = props => {
 
@@ -22,40 +23,46 @@ const Login = props => {
     };
 
     return (<>
-        <div className="loginContainer" >
-            <Card className="loginCard boxShadow">
-                <CardHeader className="headlineGreen blackText" > h ! p S t @ r </CardHeader>
-                <CardBody >
+        <div className="login-container" >
+            <div className="login-div boxShadow">
+                {/* <div className="blackText widthBig" > h ! p S t @ r </div> */}
 
-                    <input
-                        type="text"
-                        onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
-                        id="username"
-                        className="form-control"
-                        placeholder="username" />
+                <div className="fields" >
 
-                    <input
-                        type="password"
-                        onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
-                        className="form-control"
-                        id="password"
-                        placeholder="password" />
+                    <div className="username">
+                        <input
+                            type="text"
+                            onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
+                            id="username"
+                            className="user-input"
+                            placeholder="username" />
+                    </div>
+
+                    <div className="username">
+
+                        <input
+                            type="password"
+                            onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
+                            className="pass-input"
+                            id="username"
+                            placeholder="password" />
+                    </div>
 
                     <button
                         type="submit"
                         onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
-                        className="closeButtonColor marginTop"
+                        className="signin-button"
                         onClick={handleLogin}>Submit</button>
 
-                </CardBody>
-
-                <CardFooter className="flex">
-
-                    <Link to="/register" style={{ textDecoration: 'none' }} className="registerLink" >
+                    <Link to="/register" style={{ textDecoration: 'none' }} className="justify-center registerLink" >
                         Don 't Have an Account?</Link>
+                </div>
 
-                </CardFooter>
-            </Card>
+                {/* <CardFooter className="flex"> */}
+
+
+                {/* </CardFooter> */}
+            </div>
         </div>
     </>
     );
