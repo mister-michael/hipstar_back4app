@@ -9,7 +9,6 @@ const RegisterForm = props => {
     const [credentials, setCredentials] = useState({
         username: "",
         email: "",
-        password: ""
     });
 
     const handleFieldChange = evt => {
@@ -19,6 +18,16 @@ const RegisterForm = props => {
     };
 
     async function handleRegister() {
+
+        const pwInput = document.getElementById("password");
+        const unInput = document.getElementById("username");
+        const emInput = document.getElementById("email");
+
+        const registerObject = {
+            username: unInput.value,
+            email: emInput.value,
+            password: pwInput.value
+        }
 
         const emailArr = credentials.email.split("");
         const emailArrFind = emailArr.find(char => char === "@");
@@ -34,43 +43,11 @@ const RegisterForm = props => {
             window.alert("username can not be more than 16 characters");
 
         } else {
-            await dbAPI.signUpUser(credentials).then(()=> props.history.push("/search"))
-                        
-
-            // dbAPI.getAll("User").then(users => {
-                
-            //     const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
-            //     const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
-
-            //     if (email === undefined && name === undefined) {
-
-            //         dbAPI.signUpUser(credentials)
-            //             .then(res => {
-            //                 sessionStorage.setItem("userId", res.objectId);
-            //                 props.setUser(credentials);
-            //                 props.history.push("/search")
-            //             });
-
-            //             //
-            //             // () =>
-
-            //             //     jAPI.get("users").then(users => {
-            //             //         const newUser = users.find(newUser => newUser.email.toLowerCase() === credentials.email.toLowerCase());
-            //             //         sessionStorage.setItem("userId", newUser.id);
-            //             //         props.setUser(credentials);
-            //             //         props.history.push("/search");
-            //             //     })
-            //             //
-
-            //     } else if (email !== undefined) {
-            //         window.alert("email already exists");
-
-            //     } else if (name !== undefined) {
-            //         window.alert("username already exists");
-            //     }
-            // });
+            await dbAPI.signUpUser(registerObject).then(resp => {
+                props.setUser(resp.id)
+                props.history.push("/search")
+            })
         }
-
     };
 
     return (<>
@@ -87,33 +64,37 @@ const RegisterForm = props => {
                         id="username"
                         className="registerUsername"
                         placeholder="" />
-                </InputGroup> <br />
+                </InputGroup> 
 
                 <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend" className="registerEmail">
                         email
                         </InputGroupAddon>
                     <Input
-                        addonType="prepend"
+                        // addonType="prepend"
                         onChange={handleFieldChange}
                         onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
                         type="email"
                         id="email"
                         placeholder="" />
-                </InputGroup> <br />
-                
+                        
+                </InputGroup> 
+
                 <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend" className="registerEmail">
                         password
                         </InputGroupAddon>
-                    <Input
-                        addonType="prepend"
-                        onChange={handleFieldChange}
-                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
-                        type="password"
-                        id="password"
-                        placeholder="" />
-                </InputGroup> <br />
+
+                            <Input
+                                // addonType="prepend"
+                                // onChange={handleFieldChange}
+                                className="form-control"
+                                onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
+                                type="password"
+                                id="password"
+                                placeholder="" />
+
+                </InputGroup> 
 
                 <CardFooter >
                     < div className="rightAlign smallText" >
