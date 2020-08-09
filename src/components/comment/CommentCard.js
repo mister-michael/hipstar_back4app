@@ -78,9 +78,9 @@ const CommentCard = props => {
     return (
         <>
             <div className="commentContainer" onClick={toggle}>
-                <Link to={linkFunction} className="linkText">
+                {/* <Link to={linkFunction} className="linkText"> */}
                     <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{username} says...</div>
-                </Link>
+                {/* </Link> */}
                 <div className="commentBox">{props.result.attributes.comment}</div>
             </div>
             <Modal isOpen={modal} toggle={toggle} className="editModal">

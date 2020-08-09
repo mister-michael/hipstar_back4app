@@ -3,7 +3,7 @@ import jAPI from "../../modules/apiManager"
 import dbAPI from "../../modules/dbAPI";
 import LoveHates from "../profile/LoveHates"
 import RecList from "../rec/RecList"
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 
@@ -18,6 +18,7 @@ const UserProfile = props => {
     const [recUpdated, setRecUpdated] = useState(false);
     const [isActiveUser, setIsActiveUser] = useState(false);
     const [refresh, setRefresh] = useState(null)
+    const [userMoviesFound, setUserMoviesFound] = useState(null)
 
     const [activeTab, setActiveTab] = useState('1');
 
@@ -53,37 +54,22 @@ const UserProfile = props => {
 
                 setLoveState(loveArr);
                 setHateState(hateArr);
-                setRefresh(true)
+                // setRefresh(true)
+                setUserMoviesFound(true)
             });
     };
-
-    // const getUserMovies = () => {
-    //     return jAPI.userMovieExpand("loveHates", userId)
-    //         .then(loveHates => {
-    //             const loveArr = [];
-    //             const hateArr = [];
-    //             loveHates.forEach(lh => {
-
-    //                 if (lh.isHated !== true) {
-    //                     loveArr.push(lh);
-    //                 } else {
-    //                     hateArr.push(lh);
-    //                 }
-    //             });
-    //             setLoveState(loveArr);
-    //             setHateState(hateArr);
-    //         });
-    // };
 
     useEffect(() => {
         getUserObject(userId);
         getUserMovies(userId);
         setRefresh(null)
-    }, [recUpdated]);
+    }, []);
 
+    if (userMoviesFound === null) {return <div></div>}
+    else {
     return (
         <>
-            {userObject ?
+            {userMoviesFound && userObject ?
                 <>
                     <div>
                         <Nav tabs>
@@ -91,20 +77,20 @@ const UserProfile = props => {
                                 <NavLink
                                     className={classnames({ active: activeTab === '1' })}
                                     onClick={() => { toggle('1'); }}
-                                >
-                                    HATES
-          </NavLink>
+                                >HATES</NavLink>
                             </NavItem>
+                            
                             <NavItem>
                                 <NavLink
                                     className={classnames({ active: activeTab === '2' })}
                                     onClick={() => { toggle('2'); }}
-                                >
-                                    LOVES
-          </NavLink>
+                                >LOVES</NavLink>
+
                             </NavItem>
                         </Nav>
+
                         <TabContent activeTab={activeTab}>
+
                             <TabPane tabId="1">
                                 <h2 className="headline headlineRed headlineTextBlack">{userObject.attributes.username}</h2>
                                 <h2 className="headline headlineGreen headlineTextWhite">HATES</h2>
@@ -130,6 +116,7 @@ const UserProfile = props => {
                                     </div>
                                 </div>
                             </TabPane>
+
                             <TabPane tabId="2">
                                 <h2 className="headline headlineGreen headlineTextBlack">{userObject.attributes.username}</h2>
                                 <h2 className="headline headlineRed headlineTextWhite">LOVES</h2>
@@ -155,10 +142,11 @@ const UserProfile = props => {
                                     </div>
                                 </div>
                             </TabPane>
+
                         </TabContent>
                     </div>
                 </> : null} </>
-    )
+    )}
 };
 
 export default UserProfile;

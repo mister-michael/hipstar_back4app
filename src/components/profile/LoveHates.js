@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
 import { Button, CardImg, CardTitle, CardBody, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import MovieDetails from "../card/MovieDetails";
 import Comment from "../comment/Comment"
-import "../search/Search.css";
-import "./LoveHate.css";
 import dbAPI from "../../modules/dbAPI";
 import mAPI from "../../modules/movieManager";
+import "../search/Search.css";
+import "./LoveHate.css";
 
 const LoveHates = (props) => {
   const [fetchedMovieObject, setFetchedMovieObject] = useState(null)
   const [dbid, setDBID] = useState(props.movieObject.dbid);
-  
-  const [refresh, setRefresh] = useState(false);
+
+  const [refresh, setRefresh] = useState(null);
   const [modal, setModal] = useState(false);
-  
+
   const [didUserComment, setDidUserComment] = useState(false);
   const [userCommentId, setUserCommentId] = useState([]);
   const [isLoveHate, setIsLoveHate] = useState(true);
@@ -37,13 +36,13 @@ const LoveHates = (props) => {
   const fetchMovieFromTMDB = () => {
     mAPI.searchWithId(props.movieObject.dbid)
       .then(res => {
-        setFetchedMovieObject(res)
-      })
+        setFetchedMovieObject(res);
+      });
   };
 
   let poster = (int) => {
     const randomN = Math.ceil(Math.random() * int)
-    return require(`../img/image-unavailable--${randomN}.jpg`)
+    return require(`../img/image-unavailable--${randomN}.jpg`);
   };
   const imageHandler = () => {
     if (fetchedMovieObject.poster_path !== null) {
@@ -74,14 +73,17 @@ const LoveHates = (props) => {
     dbAPI.saveEditedObjectByClassNameAndObjId("loveHates", LHid, isHatedObj);
     props.getUserObject(userId);
     props.getUserMovies(userId);
-  }
+    setRefresh(true);
+  };
 
   const handleDelete = () => {
     if (activeUserId === userId) {
       dbAPI.deleteObjectByClassNameAndId("loveHates", LHid);
       props.getUserObject(userId);
       props.getUserMovies(userId);
-    }
+      props.setRecUpdated(true)
+    };
+    setRefresh(true);
   };
 
   const release = () => {
@@ -109,56 +111,59 @@ const LoveHates = (props) => {
             ><span >X</span></Button>{' '}
           </div>
         </>
-      )
-    }
+      );
+    };
   };
 
 
   useEffect(() => {
     fetchMovieFromTMDB();
     props.setRecUpdated(true)
+    setRefresh(null)
   }, []);
 
   return (
     <>
       {fetchedMovieObject ?
-        <div onClick={toggle} className="card movieCard shadow">
-          <div className="">
-          </div>
-          <CardImg id="" top src={imageHandler()} alt={`${fetchedMovieObject.title} poster`} className="cardImage" />
-          <CardTitle className="loveHateTitle">{fetchedMovieObject.title}</CardTitle>
-          <CardBody >
+        <div className="card movieCard shadow">
+          <div onClick={toggle}>
+            <div className="">
+            </div>
+            <CardImg id="" top src={imageHandler()} alt={`${fetchedMovieObject.title} poster`} className="cardImage" />
+            <CardTitle className="loveHateTitle">{fetchedMovieObject.title}</CardTitle>
+            <CardBody >
 
-            <Modal isOpen={modal} toggle={toggle} className="modalModel">
-              <ModalHeader className="" toggle={toggle}>
-                <span className="modalHeaderText" >{fetchedMovieObject.title}</span>
-                <span className="releaseDateDetails">{release()}</span>
-              </ModalHeader>
-              <ModalBody>
-                <MovieDetails posterPath={imageHandler()}movieObject={fetchedMovieObject} dbid={fetchedMovieObject.id} />
-            <Comment
-              isLovehate={isLoveHate}
-              setIsLoveHate={setIsLoveHate}
-              className="commentContainer"
-              mdbId={fetchedMovieObject.id}
-              dbid={dbid}
-              setMvid={setDBID}
-              activeUserId={activeUserId}
-              didUserComment={didUserComment}
-              setDidUserComment={setDidUserComment}
-              userCommentId={userCommentId}
-              setUserCommentId={setUserCommentId}
-              refresh={refresh}
-              setRefresh={setRefresh}
-              commentRefresh={commentRefresh}
-              setCommentRefresh={setCommentRefresh} 
-              user={props.user}/>
-              </ModalBody>
-              <ModalFooter className="">
-                <Button className="closeButtonColor" onClick={toggle}>close</Button>
-              </ModalFooter>
-            </Modal>
-          </CardBody>
+              <Modal isOpen={modal} toggle={toggle} className="modalModel">
+                <ModalHeader className="" toggle={toggle}>
+                  <span className="modalHeaderText" >{fetchedMovieObject.title}</span>
+                  <span className="releaseDateDetails">{release()}</span>
+                </ModalHeader>
+                <ModalBody>
+                  <MovieDetails posterPath={imageHandler()} movieObject={fetchedMovieObject} dbid={fetchedMovieObject.id} />
+                  <Comment
+                    isLovehate={isLoveHate}
+                    setIsLoveHate={setIsLoveHate}
+                    className="commentContainer"
+                    mdbId={fetchedMovieObject.id}
+                    dbid={dbid}
+                    setMvid={setDBID}
+                    activeUserId={activeUserId}
+                    didUserComment={didUserComment}
+                    setDidUserComment={setDidUserComment}
+                    userCommentId={userCommentId}
+                    setUserCommentId={setUserCommentId}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                    commentRefresh={commentRefresh}
+                    setCommentRefresh={setCommentRefresh}
+                    user={props.user} />
+                </ModalBody>
+                <ModalFooter className="">
+                  <Button className="closeButtonColor" onClick={toggle}>close</Button>
+                </ModalFooter>
+              </Modal>
+            </CardBody>
+          </div>
           {btnFunction()}
         </div>
         : null}

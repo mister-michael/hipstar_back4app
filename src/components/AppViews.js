@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import Login from "./auth/Login"
 import Register from "./auth/Register"
-import Home from "./home/Home"
+import HomePage from "./home/HomePage"
 import Profile from "./profile/Profile"
 import Search from "./search/Search"
 import RecList from "./rec/RecList"
@@ -36,7 +36,7 @@ const AppViews = (props) => {
         exact
         path="/home"
         render={props => {
-          if (hasUser) { return <Home {...props} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <HomePage {...props} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
@@ -50,14 +50,14 @@ const AppViews = (props) => {
         exact
         path="/profile"
         render={props => {
-          if (hasUser) { return <Profile userId={activeUserId} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <Profile userId={activeUserId} {...props}/> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
         exact
         path="/recommendations"
         render={props => {
-          if (hasUser) { return <RecListUpdated activeUserId={activeUserId} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <RecListUpdated activeUserId={activeUserId} {...props}/> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route

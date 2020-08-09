@@ -2,9 +2,13 @@
     display: flex;
     justify-content: center;
     margin: 10% 5% 5% 5%;
+    margin-left: 10%;
+    margin-right: 10%
+    
 }
 
 .login-div {
+    
         max-width:430px;
         max-height: 950px;
         padding: 0px 35px 35px 35px;
@@ -15,7 +19,7 @@
 }
 
 /* INPUTS */
-.username, .password {
+.username, .password, .email {
     
     margin-bottom: 30px;
     border-radius: 25px;
@@ -35,7 +39,7 @@
 
 .fields {
     width: 100%;
-    padding: 75px 5px 5px 5px;
+    padding: 0px 5px 5px 5px;
 }
 
 .fields input {
@@ -71,10 +75,10 @@ input[type=text], input[type=password] {
     font-weight: 700;
     font-family: 'Lato', sans-serif;
     /* color:#fff; */
-    color:rgb(210, 210, 210);
+    color:rgb(242, 240, 240);
     text-align: center;
-    /* background: #24cfaa; */
-    background:#2fdbb6;
+    background: rgba(255, 133, 133, 0.817);
+    /* background:#2fdbb6; */
     /* background: #e2e7e6; */
     box-shadow: 3px 3px 8px #b1b1b1,
                 -3px -3px 8px #ffffff;
@@ -83,11 +87,46 @@ input[type=text], input[type=password] {
 
 .signin-button:hover {
     /* box-shadow: 0px 1px 10px 5px rgba(202, 119, 119, 0.728); */
-    background: rgba(255, 133, 133, 0.817);
+    background: #26dab3;
 }
 
 .signin-button:active {
     background:#1da88a;
+}
+
+/* REGISTER */
+
+.register-button {
+    outline: none;
+    border:none;
+    cursor: pointer;
+    width:100%;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    /* color:#fff; */
+    color:rgb(242, 240, 240);
+    text-align: center;
+    /* background: rgba(255, 133, 133, 0.817); */
+    background: #26dab3;
+    /* background:#2fdbb6; */
+    /* background: #e2e7e6; */
+    box-shadow: 3px 3px 8px #b1b1b1,
+                -3px -3px 8px #ffffff;
+    transition: 0.5s;
+}
+
+.register-button:hover {
+    /* box-shadow: 0px 1px 10px 5px rgba(202, 119, 119, 0.728); */
+    /* background: #26dab3; */
+    background: rgba(255, 133, 133, 0.817);
+}
+
+.register-button:active {
+    background: rgba(255, 133, 133, 0.817);
+    /* background:#1da88a; */
 }
 
 .register-link {
@@ -104,5 +143,23 @@ input[type=text], input[type=password] {
 }
 
 .justify-center {
-    left: 50%
+    display: flex;
+    padding: 30px 35px 15px 50px;
+}
+
+.auth-header {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: xx-large;
+    color: rgb(168, 159, 159);
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.registerInstructions {
+    /* font-size: medium; */
+    color: rgb(168, 159, 159);
+    font-style: italic;
+    margin-left: 10px;
+    margin-bottom: 30px
 }

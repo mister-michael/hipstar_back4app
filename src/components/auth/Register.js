@@ -1,21 +1,9 @@
 import React, { useState } from "react";
-import jAPI from "../../modules/apiManager";
 import dbAPI from "../../modules/dbAPI";
 import { Link } from "react-router-dom"
-import { InputGroup, CardFooter, CardHeader, InputGroupAddon, Input, Card } from 'reactstrap';
 import "./LoginRegister.css"
 
 const RegisterForm = props => {
-    const [credentials, setCredentials] = useState({
-        username: "",
-        email: "",
-    });
-
-    const handleFieldChange = evt => {
-        const stateToChange = { ...credentials };
-        stateToChange[evt.target.id] = evt.target.value;
-        setCredentials(stateToChange);
-    };
 
     async function handleRegister() {
 
@@ -27,12 +15,12 @@ const RegisterForm = props => {
             username: unInput.value,
             email: emInput.value,
             password: pwInput.value
-        }
+        };
 
-        const emailArr = credentials.email.split("");
+        const emailArr = registerObject.email.split("");
         const emailArrFind = emailArr.find(char => char === "@");
 
-        const nameArr = credentials.username.split("");
+        const nameArr = registerObject.username.split("");
         const nameArrFind = nameArr.find(char => char === " ");
 
         if (nameArrFind !== undefined) {
@@ -44,66 +32,66 @@ const RegisterForm = props => {
 
         } else {
             await dbAPI.signUpUser(registerObject).then(resp => {
-                props.setUser(resp.id)
-                props.history.push("/search")
-            })
-        }
+                if (resp !== "error") {
+                    props.setUser(resp.id)
+                    props.history.push("/home")
+                }
+            });
+        };
     };
 
     return (<>
-        <div className="register" >
-            <CardHeader className="headlineRed" > < h2 > Sign Up </h2></CardHeader >
-            <Card className="registerCard" >
 
-                <InputGroup size="sm" >
-                    <InputGroupAddon addonType="prepend" className="registerUsername">
-                        username </InputGroupAddon>
-                    <Input onChange={handleFieldChange}
-                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
-                        type="username"
-                        id="username"
-                        className="registerUsername"
-                        placeholder="" />
-                </InputGroup> 
-
-                <InputGroup size="sm" >
-                    <InputGroupAddon addonType="prepend" className="registerEmail">
-                        email
-                        </InputGroupAddon>
-                    <Input
-                        // addonType="prepend"
-                        onChange={handleFieldChange}
-                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
-                        type="email"
-                        id="email"
-                        placeholder="" />
-                        
-                </InputGroup> 
-
-                <InputGroup size="sm" >
-                    <InputGroupAddon addonType="prepend" className="registerEmail">
-                        password
-                        </InputGroupAddon>
-
-                            <Input
-                                // addonType="prepend"
-                                // onChange={handleFieldChange}
-                                className="form-control"
-                                onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
-                                type="password"
-                                id="password"
-                                placeholder="" />
-
-                </InputGroup> 
-
-                <CardFooter >
-                    < div className="rightAlign smallText" >
-                        <Link to="/login" className="signLink" style={{ textDecoration: 'none' }} >
-                            already a user ?</Link>
+        <div className="login-container" >
+            <div className="login-div boxShadow">
+                <div className="fields" >
+                    <div className="auth-header">reg!ster</div>
+                    <div className="registerInstructions">
+                        <div>please use a junk password</div>
+                        <div>and remember it</div>
+                        {/* <div>i'm not a security expert... yet</div> */}
                     </div>
-                </CardFooter >
-            </Card>
+
+                    <div className="email">
+                        <input
+                            type="text"
+                            onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
+                            className="pass-input"
+                            id="email"
+                            placeholder="email" />
+                    </div>
+
+                    <div className="username">
+                        <input
+                            type="text"
+                            onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
+                            id="username"
+                            className="user-input"
+                            placeholder="username" />
+                    </div>
+
+                    <div className="username">
+                        <input
+                            type="password"
+                            onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
+                            className="pass-input"
+                            id="password"
+                            placeholder="password" />
+                    </div>
+
+                    <button
+                        type="submit"
+                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
+                        className="register-button"
+                        onClick={handleRegister}>reg!ster</button>
+
+                    <Link to="/login" style={{ textDecoration: 'none' }} className="justify-center registerLink" >
+                        Already Have an Account?</Link>
+                </div>
+            </div>
         </div>
+
+
     </>
     );
 };

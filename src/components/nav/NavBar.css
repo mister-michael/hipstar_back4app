@@ -25,3 +25,7 @@ margin-right: 10px;
 .navToggle {
   justify-self: right !important;
 }
+
+.NavBrand:hover {
+  cursor: pointer;
+}

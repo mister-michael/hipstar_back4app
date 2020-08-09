@@ -9,7 +9,7 @@ const Comment = (props) => {
     const [comments, setComments] = useState([]);
     const [review, setReview] = useState({ review: "" });
     const [reviewButtonClass, setReviewButtonClass] = useState("buttonMarginBottom reviewButtonColor justifyRight");
-    const [refresh, setRefresh] = useState(null)
+    const [refresh, setRefresh] = useState(null);
 
     const dbid = props.dbid;
 
@@ -19,37 +19,11 @@ const Comment = (props) => {
             const userComments = res.filter(comment => comment.attributes.userId === props.activeUserId);
             if (userComments.length > 0) {
                 props.setDidUserComment(true);
-                props.setUserCommentId(res.id)
+                props.setUserCommentId(res.id);
             }
-            console.log(res, "RES 24 COMMENT")
-            setComments(res.reverse())
-            // props.setCommentRefresh(!props.commentRefresh);
+            setComments(res.reverse());
         })
     }
-
-    // const findMovieIdGetComments = () => {
-
-    //     jAPI.get("movies")
-    //         .then(movies => {
-    //             const matchedMovie = movies.find(movie => movie.dbid === dbid);
-    //             let mvidHolder = "";
-    //             matchedMovie ? mvidHolder = matchedMovie.id : mvidHolder = props.mvid;
-    //             props.setMvid(mvidHolder);
-    //             jAPI.expand("comments", "user")
-    //                 .then(comments => {
-    //                     const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
-    //                     const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
-    //                     setComments(matchedComments.reverse());
-    //                     props.setCommentRefresh(!props.commentRefresh);
-    //                     if (matchedToActiveUser.length > 0) {
-    //                         props.setDidUserComment(true);
-    //                         props.setUserCommentId(matchedToActiveUser[0].id);
-    //                         setComments(matchedComments.reverse());
-    //                     }
-
-    //                 });
-    //         });
-    // };
 
     let reviewObject = {
         userId: props.activeUserId,
@@ -67,7 +41,7 @@ const Comment = (props) => {
             setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight");
         } else {
             setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight yellowGlow");
-        }
+        };
     };
 
     const targetInput = document.getElementById("review");
@@ -79,7 +53,7 @@ const Comment = (props) => {
                 props.setCommentRefresh(!props.commentRefresh);
                 props.setDidUserComment(true);
                 targetInput.value = "";
-                setRefresh(true)
+                setRefresh(true);
             });
     };
 
@@ -89,12 +63,11 @@ const Comment = (props) => {
                 <div className="commentInstructions">
                     <span className="YELLOW">your reviews will display in yellow.</span>  click to edit.
                 </div>
-            )
-        }
+            );
+        };
     };
 
     useEffect(() => {
-        // findMovieIdGetComments();
         getComments(dbid);
         setRefresh(null)
     }, [refresh]);
@@ -117,14 +90,12 @@ const Comment = (props) => {
                 name="text"
                 id="review"
                 onChange={handleChange}
-                // onKeyUp={e => e.key === "Enter" ? saveReview(e) : null}
                 className="profileMarginBottom"
             />
             {commentInstructions()}
 
             <div className="scrollBox">
                 {comments.map(res => {
-                    console.log(res.attributes.userId)
                     return (
                         <CommentCard
                             key={res.id}
@@ -135,7 +106,6 @@ const Comment = (props) => {
                             activeUserId={props.activeUserId}
                             comment={res.attributes.comment}
                             getComments={getComments}
-                            // findMovieIdGetComments={findMovieIdGetComments}
                             didUserComment={props.didUserComment}
                             setDidUserComment={props.setDidUserComment}
                             userCommentId={props.userCommentId}
@@ -148,7 +118,7 @@ const Comment = (props) => {
                 })}
             </div>
         </div >
-    )
+    );
 };
 
 export default Comment;

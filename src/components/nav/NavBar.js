@@ -47,8 +47,11 @@ const NavBar = props => {
             </Link>
               </NavItem>
             </Nav>
-            <NavbarBrand
-            >H ! P S T @ R</NavbarBrand>
+            <NavbarBrand className="NavBrand" onClick={()=> props.history.push("/home")}
+            >
+              H ! P S T @ R
+            
+              </NavbarBrand>
           </Collapse>
         </Navbar>
       ) : null}

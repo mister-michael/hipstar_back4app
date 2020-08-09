@@ -1,5 +1,4 @@
 import React from "react";
-import { Card, CardHeader, CardFooter, CardBody } from 'reactstrap';
 import { Link } from "react-router-dom";
 import dbAPI from "../../modules/dbAPI";
 import "./LoginRegister.css";
@@ -17,8 +16,9 @@ const Login = props => {
         };
 
         dbAPI.loginUser(loginObject).then(res => {
+            if (res !== "error") {
             props.setUser(res.id);
-            props.history.push("/search");
+            props.history.push("/search");}
         });
     };
 
@@ -27,8 +27,8 @@ const Login = props => {
             <div className="login-div boxShadow">
                 {/* <div className="blackText widthBig" > h ! p S t @ r </div> */}
 
+                <div className="auth-header">log!n</div>
                 <div className="fields" >
-
                     <div className="username">
                         <input
                             type="text"
@@ -44,7 +44,7 @@ const Login = props => {
                             type="password"
                             onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
                             className="pass-input"
-                            id="username"
+                            id="password"
                             placeholder="password" />
                     </div>
 
@@ -52,7 +52,7 @@ const Login = props => {
                         type="submit"
                         onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
                         className="signin-button"
-                        onClick={handleLogin}>Submit</button>
+                        onClick={handleLogin}>log!n</button>
 
                     <Link to="/register" style={{ textDecoration: 'none' }} className="justify-center registerLink" >
                         Don 't Have an Account?</Link>
