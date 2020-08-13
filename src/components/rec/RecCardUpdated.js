@@ -148,6 +148,7 @@ const RecCardUpdated = props => {
                 setDeleteButtonDisabled(true)
                 setLHid(null)
                 setRefresh(1)
+                props.getActiveUserHates()
             });
     };
 

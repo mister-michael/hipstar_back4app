@@ -103,7 +103,7 @@ const RecListUpdated = props => {
                 <div className="marginTop resultsPage">
                     <div className="cardGroup">
                         {recs.map(res => 
-                        <RecCardUpdated key={res.id} result={res} dbid={res.attributes.dbid} activeUserId={activeUserId}/>)}
+                        <RecCardUpdated key={res.id} result={res} dbid={res.attributes.dbid} activeUserId={activeUserId} getActiveUserHates={getActiveUserHates}/>)}
                     </div>
                 </div>
             </>

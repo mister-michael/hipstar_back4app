@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
-import "./Search.css"
+import { Link } from "react-router-dom";
+import "./Search.css";
 import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
-import dbAPI from "../../modules/dbAPI"
+import dbAPI from "../../modules/dbAPI";
 import {
-  Card, Button, CardImg, CardTitle, CardText, CardGroup,
-  CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
-  Modal, ModalHeader, ModalBody, ModalFooter
-} from 'reactstrap';
-import MovieDetails from "../card/MovieDetails"
-import Comment from "../comment/Comment"
-import CommentForm from "../comment/CommentForm"
+  Card,
+  Button,
+  CardImg,
+  CardTitle,
+  CardText,
+  CardGroup,
+  CardSubtitle,
+  CardBody,
+  Popover,
+  PopoverBody,
+  PopoverHeader,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "reactstrap";
+import MovieDetails from "../card/MovieDetails";
+import Comment from "../comment/Comment";
+import CommentForm from "../comment/CommentForm";
 import NewComment from "../comment/NewComment";
 
 const SearchCard = (props) => {
-
   const [refresh, setRefresh] = useState(false);
 
   const mdbId = props.result.id;
   const activeUserId = props.activeUserId;
 
   let poster = (int) => {
-    const randomN = Math.ceil(Math.random() * int)
-    return require(`../img/image-unavailable--${randomN}.jpg`)
+    const randomN = Math.ceil(Math.random() * int);
+    return require(`../img/image-unavailable--${randomN}.jpg`);
   };
 
   const imageHandler = () => {
@@ -31,10 +42,10 @@ const SearchCard = (props) => {
       return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`;
     } else {
       return poster(5);
-    };
+    }
   };
 
-  let loveHateFoundId = ""
+  let loveHateFoundId = "";
 
   const [loveBtnState, setLoveBtnState] = useState({ name: "" });
   const [hateBtnState, setHateBtnState] = useState({ name: "" });
@@ -49,69 +60,65 @@ const SearchCard = (props) => {
   const [loveText, setLoveText] = useState([]);
   const [hateText, setHateText] = useState([]);
 
-
-
   const toggle = () => setModal(!modal);
   const toggle2 = () => setModal2(!modal2);
 
-
   const buttons = () => {
-    dbAPI.userMovieExpand(mdbId)
-      .then(movies => {
-        if (movies.length > 0) {
-          for (let i = 0; i < movies.length; i++) {
-            if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
-              loveHateFoundId = movies[i].id;
-              setMvid(loveHateFoundId);
-              setHateBtnState({ name: "profileHatedButton" });
-              setLoveBtnState({ name: "closeButtonColor" });
-              setLoveHateId(loveHateFoundId);
-              setIsLoveDisabled(false);
-              setIsHateDisabled(true);
-              setHateText("hated");
-              setLoveText("love");
+    dbAPI.userMovieExpand(mdbId).then((movies) => {
+      if (movies.length > 0) {
+        for (let i = 0; i < movies.length; i++) {
+          if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
+            loveHateFoundId = movies[i].id;
+            setMvid(loveHateFoundId);
+            setHateBtnState({ name: "profileHatedButton" });
+            setLoveBtnState({ name: "closeButtonColor" });
+            setLoveHateId(loveHateFoundId);
+            setIsLoveDisabled(false);
+            setIsHateDisabled(true);
+            setHateText("hated");
+            setLoveText("love");
 
+            break;
+          } else if (
+            mdbId === movies[i].movie.dbid &&
+            movies[i].isHated === false
+          ) {
+            loveHateFoundId = movies[i].id;
+            setHateBtnState({ name: "closeButtonColor" });
+            setLoveBtnState({ name: "profileLovedButton" });
+            setLoveHateId(loveHateFoundId);
+            setIsLoveDisabled(true);
+            setIsHateDisabled(false);
+            setHateText("hate");
+            setLoveText("loved");
 
-              break
-            } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
-              loveHateFoundId = movies[i].id;
-              setHateBtnState({ name: "closeButtonColor" });
-              setLoveBtnState({ name: "profileLovedButton" });
-              setLoveHateId(loveHateFoundId);
-              setIsLoveDisabled(true);
-              setIsHateDisabled(false);
-              setHateText("hate");
-              setLoveText("loved");
-
-              break
-            } else {
-              setHateBtnState({ name: "closeButtonColor" });
-              setLoveBtnState({ name: "closeButtonColor" });
-              setIsLoveDisabled(false);
-              setIsHateDisabled(false);
-              setHateText("hate");
-              setLoveText("love");
-            }
+            break;
+          } else {
+            setHateBtnState({ name: "closeButtonColor" });
+            setLoveBtnState({ name: "closeButtonColor" });
+            setIsLoveDisabled(false);
+            setIsHateDisabled(false);
+            setHateText("hate");
+            setLoveText("love");
           }
-        } else {
-          setHateBtnState({ name: "closeButtonColor" });
-          setLoveBtnState({ name: "closeButtonColor" });
-          setIsLoveDisabled(false);
-          setIsHateDisabled(false);
-          setHateText("hate");
-          setLoveText("love");
         }
-      })
-  }
-
+      } else {
+        setHateBtnState({ name: "closeButtonColor" });
+        setLoveBtnState({ name: "closeButtonColor" });
+        setIsLoveDisabled(false);
+        setIsHateDisabled(false);
+        setHateText("hate");
+        setLoveText("love");
+      }
+    });
+  };
 
   const handleClick = (e) => {
-
-    let patchBool = ""
-    let loveDisabledBool = ""
-    let hateDisabledBool = ""
-    let hateClass = ""
-    let loveClass = ""
+    let patchBool = "";
+    let loveDisabledBool = "";
+    let hateDisabledBool = "";
+    let hateClass = "";
+    let loveClass = "";
 
     if (e.target.innerHTML === "hate") {
       patchBool = true;
@@ -127,100 +134,92 @@ const SearchCard = (props) => {
       loveClass = "profileLovedButton";
     }
 
-    mAPI.searchWithId(mdbId)
-      .then(movieById => {
+    mAPI.searchWithId(mdbId).then((movieById) => {
+      const movieObject = {
+        dbid: movieById.id,
+        title: `${movieById.title}`,
+        releaseDate: movieById.release_date,
+        posterPath: imageHandler(),
+        revenue: movieById.revenue,
+        overview: movieById.overview,
+        tagline: movieById.tagline,
+      };
 
-        const movieObject = {
-          dbid: movieById.id,
-          title: `${movieById.title}`,
-          releaseDate: movieById.release_date,
-          posterPath: imageHandler(),
-          revenue: movieById.revenue,
-          overview: movieById.overview,
-          tagline: movieById.tagline
-        };
+      jAPI.get("movies").then((movies) => {
+        const movieInJson = movies.find((movie) => movie.dbid === movieById.id);
 
-        jAPI.get("movies")
-          .then(movies => {
+        if (movieInJson !== undefined) {
+          const loveHateObject = {
+            userId: props.activeUserId,
+            movieId: movieInJson.id,
+            isHated: patchBool,
+          };
 
-            const movieInJson = movies.find(movie => movie.dbid === movieById.id);
-
-            if (movieInJson !== undefined) {
-
-              const loveHateObject = {
-                userId: props.activeUserId,
-                movieId: movieInJson.id,
-                isHated: patchBool
-              };
-
-              jAPI.get("loveHates")
-                .then(loveHatesFetch => {
-
-                  const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
-                  if (loveHateFound === undefined) {
-
-                    jAPI.save(loveHateObject, "loveHates")
-                    jAPI.userMovieExpand("lovehates", activeUserId)
-                      .then(lhs => {
-                        lhs.filter(lh => {
-                          if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                            loveHateFoundId = lh.id;
-                            setLoveHateId(loveHateFoundId);
-                            setMvid(lh.movie.id);
-                          }
-                        })
-                      })
-                  } else {
-                    loveHateFoundId = loveHateFound.id;
+          jAPI.get("loveHates").then((loveHatesFetch) => {
+            const loveHateFound = loveHatesFetch.find(
+              (object) =>
+                object.userId === activeUserId &&
+                object.movieId === movieInJson.id
+            );
+            if (loveHateFound === undefined) {
+              jAPI.save(loveHateObject, "loveHates");
+              jAPI.userMovieExpand("lovehates", activeUserId).then((lhs) => {
+                lhs.filter((lh) => {
+                  if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                    loveHateFoundId = lh.id;
                     setLoveHateId(loveHateFoundId);
-                    const toggleIsHated = { isHated: patchBool };
-                    jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
-                      .then(movie => setMvid(movie.id));
+                    setMvid(lh.movie.id);
                   }
                 });
-
+              });
             } else {
-
-              jAPI.save(movieObject, "movies")
-                .then(movieObj => {
-
-                  const loveHateObjectToSave = {
-                    userId: props.activeUserId,
-                    movieId: movieObj.id,
-                    isHated: patchBool
-                  };
-                  setMvid(movieObj.id)
-                  jAPI.save(loveHateObjectToSave, "loveHates");
-                  jAPI.userMovieExpand("lovehates", activeUserId)
-                    .then(lhs => {
-                      lhs.filter(lh => {
-                        if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                          loveHateFoundId = lh.id;
-                          setLoveHateId(loveHateFoundId);
-                        }
-                      })
-                    })
-                })
+              loveHateFoundId = loveHateFound.id;
+              setLoveHateId(loveHateFoundId);
+              const toggleIsHated = { isHated: patchBool };
+              jAPI
+                .patch(toggleIsHated, "loveHates", loveHateFoundId)
+                .then((movie) => setMvid(movie.id));
             }
-          })
-        setLoveHateId(loveHateFoundId);
-        setHateBtnState({ name: hateClass });
-        setLoveBtnState({ name: loveClass });
-        setIsLoveDisabled(loveDisabledBool);
-        setIsHateDisabled(hateDisabledBool);
-        setHasBeenChanged(!hasBeenChanged);
-      })
+          });
+        } else {
+          jAPI.save(movieObject, "movies").then((movieObj) => {
+            const loveHateObjectToSave = {
+              userId: props.activeUserId,
+              movieId: movieObj.id,
+              isHated: patchBool,
+            };
+            setMvid(movieObj.id);
+            jAPI.save(loveHateObjectToSave, "loveHates");
+            jAPI.userMovieExpand("lovehates", activeUserId).then((lhs) => {
+              lhs.filter((lh) => {
+                if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                  loveHateFoundId = lh.id;
+                  setLoveHateId(loveHateFoundId);
+                }
+              });
+            });
+          });
+        }
+      });
+      setLoveHateId(loveHateFoundId);
+      setHateBtnState({ name: hateClass });
+      setLoveBtnState({ name: loveClass });
+      setIsLoveDisabled(loveDisabledBool);
+      setIsHateDisabled(hateDisabledBool);
+      setHasBeenChanged(!hasBeenChanged);
+    });
   };
 
   const handleForget = () => {
-    jAPI.delete(loveHateId, "loveHates");
-    setLoveHateId(false);
-    setHateBtnState({ name: "closeButtonColor" });
-    setLoveBtnState({ name: "closeButtonColor" });
-    setIsLoveDisabled(false);
-    setIsHateDisabled(false);
-    setHasBeenChanged(!hasBeenChanged);
-    props.setKeyword(props.keyword);
+    jAPI.delete(loveHateId, "loveHates").then(() => {
+      setLoveHateId(false);
+      setHateBtnState({ name: "closeButtonColor" });
+      setLoveBtnState({ name: "closeButtonColor" });
+      setIsLoveDisabled(false);
+      setIsHateDisabled(false);
+      setHasBeenChanged(!hasBeenChanged);
+      props.setKeyword(props.keyword);
+    });
   };
 
   const forgetJSX = () => {
@@ -231,9 +230,12 @@ const SearchCard = (props) => {
             size="sm"
             id={`hate-button--${props.result.id}`}
             onClick={handleForget}
-            className="closeButtonColor">
-            <span >X</span>
-          </Button>{' '}</>)
+            className="closeButtonColor"
+          >
+            <span>X</span>
+          </Button>{" "}
+        </>
+      );
     }
   };
 
@@ -241,11 +243,8 @@ const SearchCard = (props) => {
     const releaseDate = "release_date";
     if (props.result[releaseDate] !== undefined) {
       return props.result[releaseDate].split("-")[0];
-    };
+    }
   };
-
-  
-
 
   useEffect(() => {
     buttons();
@@ -256,28 +255,35 @@ const SearchCard = (props) => {
       <div className="movieCard card shadow">
         {/* <Button color="danger" onClick={toggle}>HELLO</Button> */}
         <div id="searchCardDiv" onClick={toggle}>
-
-          <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+          <CardImg
+            id=""
+            top
+            src={imageHandler()}
+            alt={`${props.result.title} poster`}
+            className="cardImage"
+          />
           <div className="cardTitle">
             <CardTitle>{props.result.title}</CardTitle>
             <CardSubtitle>{release()}</CardSubtitle>
           </div>
-          <CardBody >
-
-          </CardBody>
+          <CardBody></CardBody>
           <Modal isOpen={modal} toggle={toggle} className="modalModel">
-            <ModalHeader className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
+            <ModalHeader className="modalHeaderBackgroundColor" toggle={toggle}>
+              <span className="modalHeaderText">{props.result.title}</span>
+              <span className="releaseDateDetails">{`(${release()})`}</span>
+            </ModalHeader>
             <ModalBody className="marginBottom detailsMarginTop">
               <MovieDetails
                 jsonId={jsonId}
                 setJsonId={setJsonId}
-                mdbId={mdbId} />
-              <div>
-              </div>
+                mdbId={mdbId}
+              />
+              <div></div>
             </ModalBody>
             <ModalFooter>
-
-              <Button className="closeButtonColor" onClick={toggle}>close</Button>
+              <Button className="closeButtonColor" onClick={toggle}>
+                close
+              </Button>
             </ModalFooter>
           </Modal>
         </div>
@@ -290,7 +296,7 @@ const SearchCard = (props) => {
             className={hateBtnState.name}
             disabled={isHateDisabled}
           >
-            <span >hate</span>
+            <span>hate</span>
           </Button>
           <Button
             name="love"
@@ -298,13 +304,15 @@ const SearchCard = (props) => {
             id={`love-button--${props.result.id}`}
             onClick={(e) => handleClick(e)}
             className={loveBtnState.name}
-            disabled={isLoveDisabled}><span >{loveText}</span></Button>{' '}
-          {' '}
+            disabled={isLoveDisabled}
+          >
+            <span>{loveText}</span>
+          </Button>{" "}
           {forgetJSX()}
         </div>
       </div>
     </>
-  )
+  );
 };
 
 export default SearchCard;
