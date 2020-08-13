@@ -143,27 +143,28 @@ const SearchCardRebuild = props => {
         };
     };
 
-    async function handleDelete() {
-        if (LHid !== null) {
-            await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
-                .then(res => {
-                    console.log("HANDLE DELETE")
-                    setLoveButtonClass("closeButtonColor");
-                    setLoveButtonText("Love");
-                    setHateButtonClass("closeButtonColor");
-                    setHateButtonText("Hate");
-                    setLoveButtonDisabled(false);
-                    setHateButtonDisabled(false);
-                    setDeleteButtonDisabled(true);
-                    console.log("LOWER DELETE")
-                    setLHid(null);
-                    setRefresh(true);
-                    props.setKeyword(props.keyword)
-                    props.setUpdated(true);
-                    props.handleSearch();
-                });
-        }
-    }
+    // async function handleDelete() {
+    //     if (LHid !== null) {
+    //         await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
+    //             .then(() => {
+    //                 console.log("HANDLE DELETE")
+    //                 setLoveButtonClass("closeButtonColor");
+    //                 setLoveButtonText("Love");
+    //                 setHateButtonClass("closeButtonColor");
+    //                 setHateButtonText("Hate");
+    //                 setLoveButtonDisabled(false);
+    //                 setHateButtonDisabled(false);
+    //                 setDeleteButtonDisabled(true);
+    //                 console.log("LOWER DELETE")
+    //                 setLHid(null);
+    //                 setRefresh(1);
+    //                 // props.setKeyword(props.keyword)
+    //                 isMovieRated()
+    //                 setCardUpdated(true);
+    //                 // props.handleSearch();
+    //             });
+    //     }
+    // }
 
     useEffect(() => {
         isMovieRated();
@@ -183,10 +184,10 @@ const SearchCardRebuild = props => {
                     className={hateButtonClass}
                     onClick={handleHate}
                     disabled={hateButtonDisabled}>{hateButtonText}</button>
-                <button
+                {/* <button
                     onClick={handleDelete}
                     className="closeButtonColor"
-                    disabled={deleteButtonDisabled}>x</button>
+                    disabled={deleteButtonDisabled}>x</button> */}
             </div>
         </>
     );
