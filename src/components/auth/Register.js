@@ -34,7 +34,7 @@ const RegisterForm = props => {
             await dbAPI.signUpUser(registerObject).then(resp => {
                 if (resp !== "error") {
                     props.setUser(resp.id)
-                    props.history.push("/home")
+                    props.history.push("/")
                 }
             });
         };

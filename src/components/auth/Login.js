@@ -18,7 +18,7 @@ const Login = props => {
         dbAPI.loginUser(loginObject).then(res => {
             if (res !== "error") {
             props.setUser(res.id);
-            props.history.push("/search");}
+            props.history.push("/");}
         });
     };
 

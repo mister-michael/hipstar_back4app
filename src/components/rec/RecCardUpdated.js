@@ -136,21 +136,21 @@ const RecCardUpdated = props => {
         };
     };
 
-    async function handleDelete() {
-        await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
-            .then(() => {
-                setLoveButtonClass("closeButtonColor")
-                setLoveButtonText("Love")
-                setHateButtonClass("closeButtonColor")
-                setHateButtonText("Hate")
-                setLoveButtonDisabled(false)
-                setHateButtonDisabled(false)
-                setDeleteButtonDisabled(true)
-                setLHid(null)
-                setRefresh(1)
-                props.getActiveUserHates()
-            });
-    };
+    // async function handleDelete() {
+    //     await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
+    //         .then(() => {
+    //             setLoveButtonClass("closeButtonColor")
+    //             setLoveButtonText("Love")
+    //             setHateButtonClass("closeButtonColor")
+    //             setHateButtonText("Hate")
+    //             setLoveButtonDisabled(false)
+    //             setHateButtonDisabled(false)
+    //             setDeleteButtonDisabled(true)
+    //             setLHid(null)
+    //             setRefresh(1)
+    //             props.getActiveUserHates()
+    //         });
+    // };
 
     let poster = (int) => {
         const randomN = Math.ceil(Math.random() * int)
@@ -187,10 +187,10 @@ const RecCardUpdated = props => {
                             className={hateButtonClass}
                             onClick={handleHate}
                             disabled={hateButtonDisabled}>{hateButtonText}</button>
-                        <button
+                        {/* <button
                             onClick={handleDelete}
                             className="closeButtonColor"
-                            disabled={deleteButtonDisabled}>x</button>
+                            disabled={deleteButtonDisabled}>x</button> */}
                     </div>
 
                 </>

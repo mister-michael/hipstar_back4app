@@ -34,7 +34,7 @@ const AppViews = (props) => {
       />
       <Route
         exact
-        path="/home"
+        path="/"
         render={props => {
           if (hasUser) { return <HomePage {...props} /> } else { return <Redirect to="/login" /> }
         }}
