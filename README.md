@@ -1,5 +1,5 @@
 # h!pstar
-h!pstar is a movie rating and recommendation app which connects users and recommends movies by a metric of mutual distaste.
+h!pstar is a movie rating and recommendation app which connects users and recommends movies by a metric of mutual distaste. try it out at [hipstar.app](https://www.hipstar.app).
 
 ## Table of Contents
   * [Search Database](#search-the-movie-database)
@@ -7,7 +7,6 @@ h!pstar is a movie rating and recommendation app which connects users and recomm
   * [Recommendation Page](#recommendation-page)
   * [Future Plans](#future-plans)
   * [Technology Used](#technology-used)
-  * [Install Instructions](#install-instructions)
   * [Appreciations](#appreciations)
 
 ## The User Experience
@@ -50,74 +49,10 @@ This was a front-end project at Nashville Software School, made before I had a c
 ## Technologies Used
     React.js
     Reactstrap
+    backforapp.com (backend)
     The Movie Database (external API)
     HTML
     CSS
-
-
-
-## Install Instructions
-
-### Clone the Project
-Enter the following command in your terminal to clone the project to your computer.
-```sh
-    git clone git@github.com:mister-michael/hipStar.git
-```
-### The Movie Database API
-
-To use the site you will need access to [The Movie Database API](https://www.themoviedb.org/documentation/api). Sign up for an account and request a API key in your Profile and Settings by clicking on the Avatar on the top right of the screen.
-
-When you receive your key you will need to add it to the project. Create a file called "apiKey.js" in the "src" folder. 
-
-```sh
-    cd hipstar/src
-    touch apiKey.js
-    ls
-    cd ..
-```
-
-Open the "apiKey.js" file and declare the value of the apiKey variable as your key as shown below. You can copy the template code below.
-
-    const apiKey = "paste your key inside the quotation marks"
-    
-    export default apiKey
-
-
-### NPM Install
-Install the NPM dependencies from the root directory (hipstar)
-```sh
-    npm install
-    npm install react-router-dom
-    npm install reactstrap react react-dom
-```
-
-### Json Server
-Move to the api directory
-```sh
-    cd api
-    touch database.json
-    ls
-```
-
-Copy the contents of the database.json.example file into your newly created database.json file.
-
-Then run your JSON server.
-```sh
-    json-server -p 5002 -w database.json
-```
-
-### NPM Start
-
-After installing dependencies, adding your TMDb key and creating your databse.json file, start the server
-```sh
-    npm start
-```
-
-Now that the server is running, you can visit the site
-```sh
-    http://localhost:3000/
-```
-
 
 ## Appreciations
 
