@@ -14,7 +14,7 @@ const HomePage = (props) => {
         <div>check in again for future versions</div>
         <div>to get in touch please visit my <a href="https://www.linkedin.com/in/michaelclarknashville/" className="mdcLink">LinkedIn</a></div>
         <div>or my portfolio site at <a href="https://www.michaelclarknashville.com/"className="mdcLink">michaelclarknashville.com</a></div>
-        <div>check it out on<a href="https://github.com/mister-michael/hipstar_back4app">Github</a>.</div>
+        <div>check it out on <a href="https://github.com/mister-michael/hipstar_back4app">Github</a>.</div>
       </div>
     </div>
   );
