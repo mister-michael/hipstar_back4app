@@ -55,7 +55,7 @@ const Login = props => {
                         onClick={handleLogin}>log!n</button>
 
                     <Link to="/register" style={{ textDecoration: 'none' }} className="justify-center registerLink" >
-                        Don 't Have an Account?</Link>
+                        Don't Have an Account?</Link>
                 </div>
 
                 {/* <CardFooter className="flex"> */}

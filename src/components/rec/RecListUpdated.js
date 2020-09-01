@@ -9,7 +9,7 @@ const RecListUpdated = props => {
     const [matchedUserObject, setMatchedUserObject] = useState(null);
 
     const activeUserId = props.activeUserId;
-    let topMatchedUser = "";
+    let topMatchedUser = "oBTRzSp0pG";
 
     async function getActiveUserHates() {
         const hatedDbidArray = [];
@@ -63,7 +63,7 @@ const RecListUpdated = props => {
                         return 0;
                     });
 
-                    tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = null;
+                    tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = "oBTRzSp0pG";
 
                     let userLovedMovies = "";
                     
@@ -90,13 +90,13 @@ const RecListUpdated = props => {
     }, []);
 
     if (recs.length === 0) {
-        return (<h2>Waiting for more users and ratings to give you a sweet Recommendation!</h2>);
+        return (<h2>Hate more movies and get more Reccomendations!</h2>);
     } else if (matchedUserObject) {
         return (
             <>
                 <h2 className="headline headlineGreen headlineTextBlack">Movies You Might'nt Hate</h2>
                 <div className="headline headlineRed headlineTextWhite">From User:
-            <Link to={`/${matchedUserObject.id}`} className="linkText">
+            <Link to={`/user/${matchedUserObject.id}`} className="linkText pointer">
                         {matchedUserObject.attributes.username}
                     </Link>
                 </div>

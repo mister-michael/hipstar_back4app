@@ -47,7 +47,7 @@ const NavBar = props => {
             </Link>
               </NavItem>
             </Nav>
-            <NavbarBrand className="NavBrand" onClick={()=> props.history.push("/home")}
+            <NavbarBrand className="NavBrand" onClick={()=> props.history.push("/")}
             >
               H ! P S T @ R
             

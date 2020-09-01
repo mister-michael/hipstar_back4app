@@ -5,7 +5,7 @@ const HomePage = (props) => {
     <div className="bodyContainer">
       <div>
         <div className="homePageHeader">
-          <div className="homePage">hipstar</div>
+          <div className="homePage">h!pst@r</div>
           <div className="version1"> v.1</div>
         </div>
         <div>an app created by Michael Clark</div>

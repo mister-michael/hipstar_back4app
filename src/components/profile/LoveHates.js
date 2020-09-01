@@ -137,7 +137,7 @@ const LoveHates = (props) => {
   return (
     <>
       {fetchedMovieObject ? (
-        <div className="card movieCard shadow">
+        <div className="card movieCard shadow pointer">
           <div onClick={toggle}>
             <div className=""></div>
             <CardImg

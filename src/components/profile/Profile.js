@@ -65,7 +65,7 @@ const Profile = props => {
       {userObject ?
         <div className="">
           <Nav tabs>
-            <NavItem>
+            <NavItem className="pointer">
               <NavLink
                 className={classnames({ active: activeTab === '1' })}
                 onClick={() => { toggle('1'); }}
@@ -73,7 +73,7 @@ const Profile = props => {
                 HATES
           </NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem className="pointer">
               <NavLink
                 className={classnames({ active: activeTab === '2' })}
                 onClick={() => { toggle('2'); }}

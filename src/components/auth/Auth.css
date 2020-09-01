@@ -193,3 +193,7 @@ input[type="password"] {
 .mdcLink {
     cursor: pointer;
 }
+
+.pointer:hover {
+    cursor: pointer;
+}
