@@ -2,16 +2,17 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import Login from "./auth/Login"
 import Register from "./auth/Register"
-import Home from "./home/Home"
+import HomePage from "./home/HomePage"
 import Profile from "./profile/Profile"
 import Search from "./search/Search"
 import RecList from "./rec/RecList"
+import RecListUpdated from './rec/RecListUpdated';
 import Hpstr from "./hpstr/Hpstr"
 import UserProfile from "./UserProfile/UserProfile"
 
 const AppViews = (props) => {
   
-  const activeUserId = parseInt(sessionStorage.getItem("userId"));
+  const activeUserId = sessionStorage.getItem("userId");
   const setUser = props.setUser;
   let hasUser = props.hasUser;
 
@@ -33,9 +34,9 @@ const AppViews = (props) => {
       />
       <Route
         exact
-        path="/home"
+        path="/"
         render={props => {
-          if (hasUser) { return <Home {...props} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <HomePage {...props} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
@@ -49,14 +50,14 @@ const AppViews = (props) => {
         exact
         path="/profile"
         render={props => {
-          if (hasUser) { return <Profile userId={activeUserId} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <Profile userId={activeUserId} {...props}/> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
         exact
         path="/recommendations"
         render={props => {
-          if (hasUser) { return <RecList activeUserId={activeUserId} /> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <RecListUpdated activeUserId={activeUserId} {...props}/> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
@@ -68,12 +69,12 @@ const AppViews = (props) => {
       />
       <Route
         exact
-        path="/"
+        path="/user/:userId(\w+)"
         render={props => {
           if (hasUser) {
             return (
               <UserProfile
-                userId={parseInt(props.match.params.userId)}
+                userId={props.match.params.userId}
                 activeUserid={activeUserId}
                 {...props}
               />

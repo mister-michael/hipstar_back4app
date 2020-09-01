@@ -9,7 +9,7 @@ import "../search/Search.css"
 
 const RecCard = (props) => {
   const movie = props.result.movie;
-  const mdbId = movie.dbid;
+  const dbid = props.dbid;
   const activeUserId = props.activeUserId;
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
   let loveHateFoundId = "";
@@ -42,7 +42,7 @@ const RecCard = (props) => {
       .then(movies => {
         if (movies.length > 0) {
           for (let i = 0; i < movies.length; i++) {
-            if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
+            if (dbid === movies[i].movie.dbid && movies[i].isHated === true) {
               loveHateFoundId = movies[i].id;
               setHateBtnState({ name: "profileHatedButton" });
               setLoveBtnState({ name: "closeButtonColor" });
@@ -51,7 +51,7 @@ const RecCard = (props) => {
               setIsHateDisabled(true);
 
               break
-            } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
+            } else if (dbid === movies[i].movie.dbid && movies[i].isHated === false) {
               loveHateFoundId = movies[i].id;
               setHateBtnState({ name: "closeButtonColor" });
               setLoveBtnState({ name: "profileLovedButton" });
@@ -101,7 +101,7 @@ const RecCard = (props) => {
       loveClass = "profileLovedButton";
     }
 
-    mAPI.searchWithId(mdbId)
+    mAPI.searchWithId(dbid)
       .then(movieById => {
 
         jAPI.get("movies")
@@ -126,7 +126,7 @@ const RecCard = (props) => {
                   jAPI.userMovieExpand("lovehates", activeUserId)
                     .then(lhs => {
                       lhs.filter(lh => {
-                        if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                        if (lh.movie.dbid === dbid && lh.userId === activeUserId) {
                           loveHateFoundId = lh.id;
                           setLoveHateId(loveHateFoundId);
                         }
@@ -217,7 +217,7 @@ const RecCard = (props) => {
                 isLoveHate={isLoveHate}
                 jsonId={jsonId}
                 setJsonId={setJsonId}
-                mdbId={mdbId} />
+                mdbId={dbid} />
               <Comment
                 isLovehate={isLoveHate}
                 setIsLoveHate={setIsLoveHate}

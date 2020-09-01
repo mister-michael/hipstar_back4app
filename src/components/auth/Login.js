@@ -1,93 +1,68 @@
-import React, { useState, useEffect } from "react";
-import {Card, Button, CardHeader,CardFooter,CardBody,InputGroup,InputGroupAddon,Input,InputGroupButtonDropdown,DropdownToggle,DropdownMenu,DropdownItem} from 'reactstrap';
+import React from "react";
 import { Link } from "react-router-dom";
-import dbAPI from "../../modules/dbAPI"
-import jAPI from "../../modules/apiManager";
+import dbAPI from "../../modules/dbAPI";
 import "./LoginRegister.css";
+import "./Auth.css"
 
 const Login = props => {
-    const [credentials, setCredentials] = useState({});
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [symbol, setSymbol] = useState({ symbol: "@", placeholder: "username" });
 
-    const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
-
-    const handleAt = () => {
-        setSymbol({ symbol: "@", placeholder: "username" });
-    }
-
-    const handleEmail = () => {
-        setSymbol({ symbol: "email", placeholder: "email" });
-    }
-
-    const handleFieldChange = evt => {
-        const stateToChange = { ...credentials };
-        stateToChange[evt.target.id] = evt.target.value.toLowerCase();
-        setCredentials(stateToChange);
-    };
     const handleLogin = (evt) => {
-        dbAPI.loginUser(credentials).then(res => {
-            console.log(res, res.id)
-            props.setUser(res.id)
-            props.history.push("/search")
-        })
-        // jAPI.get("users")
-        //     .then(users => {
-        //         const user = users.find(user => (user.email.toLowerCase() === credentials.input.toLowerCase()) || (user.username.toLowerCase() === credentials.input.toLocaleLowerCase()))
-        //         if (user !== undefined) {
-        //             sessionStorage.setItem("userId", user.id)
-        //             props.setUser(credentials)
-        //             props.history.push("/profile")
-        //         } else {
-        //             window.alert("try again")
-        //         }
-        //     });
+        const pwInput = document.getElementById("password");
+        const unInput = document.getElementById("username");
+
+        const loginObject = {
+            username: unInput.value,
+            password: pwInput.value
+        };
+
+        dbAPI.loginUser(loginObject).then(res => {
+            if (res !== "error") {
+            props.setUser(res.id);
+            props.history.push("/");}
+        });
     };
-
-    useEffect(() => {
-
-    }, []);
 
     return (<>
-        <div className="loginContainer" >
-            <Card className="loginCard boxShadow">
-                <CardHeader className="headlineGreen blackText" > h ! p S t @ r </CardHeader>
-                <CardBody >
-                    {/* <InputGroup className="marginTopSmall">
-                        <InputGroupAddon addonType="prepend" >
-                            <InputGroupButtonDropdown addonType="append"
-                                isOpen={dropdownOpen}
-                                toggle={toggleDropDown} >
-                                <DropdownToggle caret > {symbol.symbol} </DropdownToggle>
-                                <DropdownMenu >
-                                    <DropdownItem id="atDropDown"
-                                        onClick={handleAt} >
-                                        @ </DropdownItem>
-                                    <DropdownItem id="emailDropDown"
-                                        onClick={handleEmail} > email
-                                         </DropdownItem>
-                                </DropdownMenu>
-                            </InputGroupButtonDropdown>
-                        </InputGroupAddon>
-                        <Input placeholder={symbol.placeholder}
-                            onChange={handleFieldChange}
-                            onKeyUp={evt => evt.key === "Enter" ? handleLogin(evt) : null}
-                            type="input"
-                            id="input" />
-                        <InputGroupAddon addonType="append" >
-                            <Button onClick={handleLogin} > sign in </Button>
-                        </InputGroupAddon>
-                    </InputGroup> */}
-                    <input type="text" id="username" placeholder="username" onKeyUp={handleFieldChange}/>
-                    <input type="text" id="password" placeholder="password" onKeyUp={handleFieldChange}/>
-                    <button type="submit" onClick={handleLogin}>Submit</button>
-                </CardBody>
-                <CardFooter className="flex">
-                    <Link to="/register" style={{ textDecoration: 'none' }} className="registerLink" >
-                        Don 't Have an Account?
-                            </Link>
-                </CardFooter>
-            </Card>
+        <div className="login-container" >
+            <div className="login-div boxShadow">
+                {/* <div className="blackText widthBig" > h ! p S t @ r </div> */}
+
+                <div className="auth-header">log!n</div>
+                <div className="fields" >
+                    <div className="username">
+                        <input
+                            type="text"
+                            onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
+                            id="username"
+                            className="user-input"
+                            placeholder="username" />
+                    </div>
+
+                    <div className="username">
+
+                        <input
+                            type="password"
+                            onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
+                            className="pass-input"
+                            id="password"
+                            placeholder="password" />
+                    </div>
+
+                    <button
+                        type="submit"
+                        onKeyUp={evt => evt.key === "Enter" ? handleLogin() : null}
+                        className="signin-button"
+                        onClick={handleLogin}>log!n</button>
+
+                    <Link to="/register" style={{ textDecoration: 'none' }} className="justify-center registerLink" >
+                        Don't Have an Account?</Link>
+                </div>
+
+                {/* <CardFooter className="flex"> */}
+
+
+                {/* </CardFooter> */}
+            </div>
         </div>
     </>
     );

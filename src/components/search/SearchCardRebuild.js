@@ -4,31 +4,32 @@ import dbAPI from "../../modules/dbAPI";
 
 const SearchCardRebuild = props => {
 
-    const [buttonClass, setButtonClass] = useState({ loveClass: "closeButtonColor", hateClass: "closeButtonColor" })
-    const [buttonText, setButtonText] = useState({ loveText: "Love", hateText: "Hate" })
-    const [hateButtonText, setHateButtonText] = useState("Hate")
-    const [loveButtonText, setLoveButtonText] = useState("Love")
-    const [hateButtonClass, setHateButtonClass] = useState("closeButtonColor")
-    const [loveButtonClass, setLoveButtonClass] = useState("closeButtonColor")
-    const [hateButtonDisabled, setHateButtonDisabled] = useState(false)
-    const [LoveButtonDisabled, setLoveButtonDisabled] = useState(false)
-    const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true)
-    const [LHid, setLHid] = useState(null)
+    const [buttonClass, setButtonClass] = useState({ loveClass: "closeButtonColor", hateClass: "closeButtonColor" });
+    const [buttonText, setButtonText] = useState({ loveText: "Love", hateText: "Hate" });
+    const [hateButtonText, setHateButtonText] = useState("Hate");
+    const [loveButtonText, setLoveButtonText] = useState("Love");
+    const [hateButtonClass, setHateButtonClass] = useState("closeButtonColor");
+    const [loveButtonClass, setLoveButtonClass] = useState("closeButtonColor");
+    const [hateButtonDisabled, setHateButtonDisabled] = useState(false);
+    const [LoveButtonDisabled, setLoveButtonDisabled] = useState(false);
+    const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true);
+    const [cardUpdated, setCardUpdated] = useState(null);
+    const [LHid, setLHid] = useState(null);
 
 
-    const [movie, setMovie] = useState(props.result)
+    const [movie, setMovie] = useState(props.result);
 
 
-    const [refresh, setRefresh] = useState(null)
+    const [refresh, setRefresh] = useState(null);
 
-    const activeUserId = sessionStorage.getItem("userId")
+    const activeUserId = sessionStorage.getItem("userId");
 
-    const buttonClassState = { ...buttonClass }
-    const buttonTextState = { ...buttonText }
+    const buttonClassState = { ...buttonClass };
+    const buttonTextState = { ...buttonText };
 
     let poster = (int) => {
-        const randomN = Math.ceil(Math.random() * int)
-        return require(`../img/image-unavailable--${randomN}.jpg`)
+        const randomN = Math.ceil(Math.random() * int);
+        return require(`../img/image-unavailable--${randomN}.jpg`);
     };
 
     const imageHandler = () => {
@@ -45,32 +46,32 @@ const SearchCardRebuild = props => {
 
 
                 if (res.length > 0 && res[0].attributes.isHated === true) {
-                    buttonClassState["hateClass"] = "profileHatedButton"
-                    buttonTextState["hateText"] = "Hated"
-                    setHateButtonClass("profileHatedButton")
-                    setHateButtonText("Hated")
-                    setButtonClass(buttonClassState)
-                    setButtonText(buttonTextState)
-                    setHateButtonDisabled(true)
-                    setDeleteButtonDisabled(false)
-                    setLHid(res[0].id)
+                    buttonClassState["hateClass"] = "profileHatedButton";
+                    buttonTextState["hateText"] = "Hated";
+                    setHateButtonClass("profileHatedButton");
+                    setHateButtonText("Hated");
+                    setButtonClass(buttonClassState);
+                    setButtonText(buttonTextState);
+                    setHateButtonDisabled(true);
+                    setDeleteButtonDisabled(false);
+                    setLHid(res[0].id);
 
                 } else if (res.length > 0 && res[0].attributes.isHated === false) {
-                    buttonClassState["loveClass"] = "profileLovedButton"
-                    buttonTextState["loveText"] = "Loved"
-                    setLoveButtonClass("profileLovedButton")
-                    setButtonClass(buttonClassState)
-                    setButtonText(buttonTextState)
-                    setLoveButtonText("Loved")
-                    setLoveButtonDisabled(true)
-                    setDeleteButtonDisabled(false)
-                    setLHid(res[0].id)
-                } else {
-                    setButtonClass(buttonClassState)
-                    setButtonText(buttonTextState)
-                    setDeleteButtonDisabled(true)
+                    buttonClassState["loveClass"] = "profileLovedButton";
+                    buttonTextState["loveText"] = "Loved";
+                    setLoveButtonClass("profileLovedButton");
+                    setButtonClass(buttonClassState);
+                    setButtonText(buttonTextState);
+                    setLoveButtonText("Loved");
+                    setLoveButtonDisabled(true);
+                    setDeleteButtonDisabled(false);
+                    setLHid(res[0].id);
 
-                }
+                } else {
+                    setButtonClass(buttonClassState);
+                    setButtonText(buttonTextState);
+                    setDeleteButtonDisabled(true);
+                };
             })
     };
 
@@ -83,29 +84,29 @@ const SearchCardRebuild = props => {
         if (LHid === null) {
             await dbAPI.createNewObjectByClassName("loveHates", loveHateObj)
                 .then(res => {
-                    setLoveButtonClass("profileLovedButton")
-                    setLoveButtonText("Loved")
-                    setHateButtonClass("closeButtonColor")
-                    setHateButtonText("Hate")
-                    setLoveButtonDisabled(true)
-                    setHateButtonDisabled(false)
-                    setDeleteButtonDisabled(false)
-                    setLHid(res.id)
-                    setRefresh(1)
+                    setLoveButtonClass("profileLovedButton");
+                    setLoveButtonText("Loved");
+                    setHateButtonClass("closeButtonColor");
+                    setHateButtonText("Hate");
+                    setLoveButtonDisabled(true);
+                    setHateButtonDisabled(false);
+                    setDeleteButtonDisabled(false);
+                    setLHid(res.id);
+                    setRefresh(1);
                 });
         } else {
             await dbAPI.saveEditedObjectByClassNameAndObjId("loveHates", LHid, loveHateObj)
                 .then(() => {
-                    setLoveButtonClass("profileLovedButton")
-                    setLoveButtonText("Loved")
-                    setHateButtonClass("closeButtonColor")
-                    setHateButtonText("Hate")
-                    setLoveButtonDisabled(true)
-                    setHateButtonDisabled(false)
-                    setDeleteButtonDisabled(false)
-                    setRefresh(1)
+                    setLoveButtonClass("profileLovedButton");
+                    setLoveButtonText("Loved");
+                    setHateButtonClass("closeButtonColor");
+                    setHateButtonText("Hate");
+                    setLoveButtonDisabled(true);
+                    setHateButtonDisabled(false);
+                    setDeleteButtonDisabled(false);
+                    setRefresh(1);
                 });
-        }
+        };
     };
 
     async function handleHate() {
@@ -117,50 +118,58 @@ const SearchCardRebuild = props => {
         if (LHid === null) {
             await dbAPI.createNewObjectByClassName("loveHates", loveHateObj)
                 .then(res => {
-                    setLoveButtonClass("closeButtonColor")
-                    setLoveButtonText("Love")
-                    setHateButtonClass("profileHatedButton")
-                    setHateButtonText("Hated")
-                    setLoveButtonDisabled(false)
-                    setHateButtonDisabled(true)
-                    setDeleteButtonDisabled(false)
-                    setLHid(res.id)
-                    setRefresh(1)
+                    setLoveButtonClass("closeButtonColor");
+                    setLoveButtonText("Love");
+                    setHateButtonClass("profileHatedButton");
+                    setHateButtonText("Hated");
+                    setLoveButtonDisabled(false);
+                    setHateButtonDisabled(true);
+                    setDeleteButtonDisabled(false);
+                    setLHid(res.id);
+                    setRefresh(1);
                 });
         } else {
             await dbAPI.saveEditedObjectByClassNameAndObjId("loveHates", LHid, loveHateObj)
                 .then(res => {
-                    setLoveButtonClass("closeButtonColor")
-                    setLoveButtonText("Love")
-                    setHateButtonClass("profileHatedButton")
-                    setHateButtonText("Hated")
-                    setLoveButtonDisabled(false)
-                    setHateButtonDisabled(true)
-                    setDeleteButtonDisabled(false)
-                    setRefresh(1)
+                    setLoveButtonClass("closeButtonColor");
+                    setLoveButtonText("Love");
+                    setHateButtonClass("profileHatedButton");
+                    setHateButtonText("Hated");
+                    setLoveButtonDisabled(false);
+                    setHateButtonDisabled(true);
+                    setDeleteButtonDisabled(false);
+                    setRefresh(1);
                 });
-        }
+        };
     };
 
-    async function handleDelete() {
-        await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
-            .then(res => {
-                setLoveButtonClass("closeButtonColor")
-                setLoveButtonText("Love")
-                setHateButtonClass("closeButtonColor")
-                setHateButtonText("Hate")
-                setLoveButtonDisabled(false)
-                setHateButtonDisabled(false)
-                setDeleteButtonDisabled(true)
-                setLHid(null)
-                setRefresh(1)
-            });
-    }
+    // async function handleDelete() {
+    //     if (LHid !== null) {
+    //         await dbAPI.deleteObjectByClassNameAndId("loveHates", LHid)
+    //             .then(() => {
+    //                 console.log("HANDLE DELETE")
+    //                 setLoveButtonClass("closeButtonColor");
+    //                 setLoveButtonText("Love");
+    //                 setHateButtonClass("closeButtonColor");
+    //                 setHateButtonText("Hate");
+    //                 setLoveButtonDisabled(false);
+    //                 setHateButtonDisabled(false);
+    //                 setDeleteButtonDisabled(true);
+    //                 console.log("LOWER DELETE")
+    //                 setLHid(null);
+    //                 setRefresh(1);
+    //                 // props.setKeyword(props.keyword)
+    //                 isMovieRated()
+    //                 setCardUpdated(true);
+    //                 // props.handleSearch();
+    //             });
+    //     }
+    // }
 
     useEffect(() => {
         isMovieRated();
-        setRefresh(null)
-    }, [refresh])
+        setRefresh(null);
+    }, [refresh]);
 
     return (
         <>
@@ -175,13 +184,13 @@ const SearchCardRebuild = props => {
                     className={hateButtonClass}
                     onClick={handleHate}
                     disabled={hateButtonDisabled}>{hateButtonText}</button>
-                <button
+                {/* <button
                     onClick={handleDelete}
                     className="closeButtonColor"
-                    disabled={deleteButtonDisabled}>x</button>
+                    disabled={deleteButtonDisabled}>x</button> */}
             </div>
         </>
-    )
-}
+    );
+};
 
-export default SearchCardRebuild
+export default SearchCardRebuild;

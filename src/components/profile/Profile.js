@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import dbAPI from "../../modules/dbAPI";
-import LoveHates from "./LoveHates"
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
+import LoveHates from "./LoveHates";
+import dbAPI from "../../modules/dbAPI";
 
 
 const Profile = props => {
@@ -14,16 +14,15 @@ const Profile = props => {
   const [hateState, setHateState] = useState([]);
   const [recUpdated, setRecUpdated] = useState(null);
   const [isActiveUser, setIsActiveUser] = useState(true);
-  const [refresh, setRefresh] = useState(null)
 
   async function getUserObject(userId) {
     return await dbAPI.fetchObjectByClassNameAndId("User", userId)
       .then(user => {
-        setUserObject(user)
-      })
-  }
+        setUserObject(user);
+      });
+  };
 
-  async function getUserMovies (id) {
+  async function getUserMovies(id) {
     return dbAPI.getLoveHates(id)
       .then(loveHates => {
 
@@ -36,7 +35,7 @@ const Profile = props => {
             LHid: lh.id,
             userId: lh.attributes.userId,
             isHated: lh.attributes.isHated
-          }
+          };
 
           if (lh.attributes.isHated !== true) {
             loveArr.push(pushObject);
@@ -47,7 +46,6 @@ const Profile = props => {
 
         setLoveState(loveArr);
         setHateState(hateArr);
-        setRefresh(true)
       });
   };
 
@@ -60,7 +58,6 @@ const Profile = props => {
   useEffect(() => {
     getUserObject(activeUserId);
     getUserMovies(activeUserId);
-    setRefresh(null)
   }, []);
 
   return (
@@ -68,7 +65,7 @@ const Profile = props => {
       {userObject ?
         <div className="">
           <Nav tabs>
-            <NavItem>
+            <NavItem className="pointer">
               <NavLink
                 className={classnames({ active: activeTab === '1' })}
                 onClick={() => { toggle('1'); }}
@@ -76,7 +73,7 @@ const Profile = props => {
                 HATES
           </NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem className="pointer">
               <NavLink
                 className={classnames({ active: activeTab === '2' })}
                 onClick={() => { toggle('2'); }}
@@ -94,7 +91,7 @@ const Profile = props => {
                   className="cardGroup profileResultsPage">
                   {hateState.map(res =>
                     <LoveHates
-                    user={userObject}
+                      user={userObject}
                       key={res.dbid}
                       loveHateObject={res}
                       getUserMovies={getUserMovies}
@@ -141,7 +138,7 @@ const Profile = props => {
         </div>
         : null}
     </>
-  )
+  );
 };
 
-export default Profile
+export default Profile;

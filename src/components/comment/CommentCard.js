@@ -67,7 +67,7 @@ const CommentCard = props => {
         if (activeUserId === commentUserId) {
             return `/profile`
         } else {
-            return `/${commentUserId}`
+            return `/user/${commentUserId}`
         }
     };
 

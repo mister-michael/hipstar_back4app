@@ -7,6 +7,7 @@ const Search = (props) => {
 
   const [keyword, setKeyword] = useState({ searchInput: "" });
   const [results, setResults] = useState([]);
+  const [updated, setUpdated] = useState(null)
 
   const handleFieldChange = evt => {
     const stateToChange = { ...keyword };
@@ -42,7 +43,7 @@ const Search = (props) => {
         </div>
       <div className="resultsPage">
         <div id="searchResults" className="cardGroup marginTop">
-          {results.map(res => <SearchCardRebuild searchResults={results} result={res} {...props} key={res.id}/>)}
+          {results.map(res => <SearchCardRebuild setUpdated={setUpdated} handleSearch={handleSearch} keyword={keyword} setKeyword={setKeyword} searchResults={results} result={res} {...props} key={res.id}/>)}
         </div>
       </div>
     </>
